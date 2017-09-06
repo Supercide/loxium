@@ -13,10 +13,17 @@
   },
   "devDependencies": {
     "expose-loader": "^0.7.3",
-    "webpack": "^3.6.0"
+    "webpack": "^3.6.0",
+    "@types/chai": "^4.0.4",
+    "@types/mocha": "^2.2.42",
+    "chai": "^4.1.2",
+    "karma": "^1.7.1",
+    "mocha": "^3.5.0",
+    "ts-node": "^3.3.0",
+    "typings": "^2.1.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha -r ts-node/register ./tests/**/*.tests.ts",
     "gulp": "gulp",
     "webpack": "webpack --config webpack.config.js",
     "build": "npm run gulp && npm run webpack"
