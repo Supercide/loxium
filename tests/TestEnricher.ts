@@ -1,6 +1,6 @@
-import { IEnrichLogs } from '../IEnrichLogs';
-import { IBuildLogMessage } from '../IBuildLogMessage';
-import { MessageLog } from '../MessageLog';
+import { IEnrichLogs } from '../src/IEnrichLogs';
+import { IBuildLogMessage } from '../src/IBuildLogMessage';
+import { MessageLog } from '../src/MessageLog';
 
 export class TestEnricher implements IEnrichLogs {
     messageLogs: MessageLog[] = [];

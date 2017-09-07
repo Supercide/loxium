@@ -1,3 +1,4 @@
+import { expect } from 'chai'
 import { TestWriter } from './TestWriter';
 import { LogBuilder } from '../src/LogBuilder';
 import { LogLevel } from '../src/LogLevel';
@@ -28,7 +29,7 @@ describe('GivenLoggerSetToErrorLevel', () => {
             logBuilder.withMessage('Hello World');
         });
 
-      expect(LogLevel.Error).toEqual(testWriter.logMessages[0].level);
+      expect(LogLevel.Error).to.equal(testWriter.logMessages[0].level);
     });
   
     it('WhenLogging_WithEnricher_ThenCallsEnrichers', () => {    
@@ -37,7 +38,7 @@ describe('GivenLoggerSetToErrorLevel', () => {
             logBuilder.withMessage('Hello World');
         });
 
-      expect(1).toEqual(testEnricher.messageLogs.length);
+      expect(1).to.equal(testEnricher.messageLogs.length);
     });
 
     it('WhenLoggingAtErrorLevel_ThenLogsMessage', () => {
@@ -47,7 +48,7 @@ describe('GivenLoggerSetToErrorLevel', () => {
             logBuilder.withMessage(expectedMessage);
         });
 
-      expect(expectedMessage).toEqual(testWriter.logMessages[0].message);
+      expect(expectedMessage).to.equal(testWriter.logMessages[0].message);
     });
 
     it('WhenLoggingAtErrorLevel_ThenOnlyCallsWriterOnce', () => {
@@ -57,7 +58,7 @@ describe('GivenLoggerSetToErrorLevel', () => {
             logBuilder.withMessage(expectedMessage);
         });
 
-      expect(1).toEqual(testWriter.logMessages.length);
+      expect(1).to.equal(testWriter.logMessages.length);
     });
 
     it('WhenLoggingAtInformationLevel_ThenDoesNotLogMessage', () => {
@@ -65,7 +66,7 @@ describe('GivenLoggerSetToErrorLevel', () => {
           logBuilder.withMessage('Hello World');
       });
 
-    expect(0).toEqual(testWriter.logMessages.length);
+    expect(0).to.equal(testWriter.logMessages.length);
   });
 
   it('WhenLoggingAtDebugLevel_ThenDoesNotLogMessage', () => {
@@ -73,7 +74,7 @@ describe('GivenLoggerSetToErrorLevel', () => {
         logBuilder.withMessage('Hello World');
     });
 
-  expect(0).toEqual(testWriter.logMessages.length);
+  expect(0).to.equal(testWriter.logMessages.length);
 });
 
 it('WhenLoggingAtTraceLevel_ThenDoesNotLogMessage', () => {
@@ -81,7 +82,7 @@ it('WhenLoggingAtTraceLevel_ThenDoesNotLogMessage', () => {
       logBuilder.withMessage('Hello World');
   });
 
-expect(0).toEqual(testWriter.logMessages.length);
+expect(0).to.equal(testWriter.logMessages.length);
 });
 
 it('WhenLoggingAtWarningLevel_ThenDoesNotLogMessage', () => {
@@ -89,7 +90,7 @@ it('WhenLoggingAtWarningLevel_ThenDoesNotLogMessage', () => {
       logBuilder.withMessage('Hello World');
   });
 
-expect(0).toEqual(testWriter.logMessages.length);
+expect(0).to.equal(testWriter.logMessages.length);
 });
 
     it('WhenLoggingAtErrorLevel_ThenLogsContext', () => {
@@ -97,7 +98,7 @@ expect(0).toEqual(testWriter.logMessages.length);
           logBuilder.withMessage('Hello World');
       });
 
-    expect(context).toEqual(testWriter.logMessages[0].context);
+    expect(context).to.equal(testWriter.logMessages[0].context);
   });
 
   it('WhenLoggingAtErrorLevel_WithMethod_ThenLogsMethod', () => {
@@ -107,7 +108,7 @@ expect(0).toEqual(testWriter.logMessages.length);
         logBuilder.withMessage('Hello World');
     }, expectedMethod);
 
-    expect(expectedMethod).toEqual(testWriter.logMessages[0].method);
+    expect(expectedMethod).to.equal(testWriter.logMessages[0].method);
   });
 
   it('WhenLoggingAtErrorLevel_WithProperties_ThenLogsProperties', () => {
@@ -119,7 +120,7 @@ expect(0).toEqual(testWriter.logMessages.length);
                   .withProperty(expectedKey, expectedValue);
     });
 
-  expect(expectedValue).toEqual(testWriter.logMessages[0].properties[expectedKey]);
+  expect(expectedValue).to.equal(testWriter.logMessages[0].properties[expectedKey]);
 });
 
 it('WhenLoggingAtErrorLevel_WithMultipleProperties_ThenLogsProperties', () => {
@@ -134,8 +135,8 @@ it('WhenLoggingAtErrorLevel_WithMultipleProperties_ThenLogsProperties', () => {
                 .withProperty(expectedKeyTwo, expectedValueTwo);
   });
 
-expect(expectedValueOne).toEqual(testWriter.logMessages[0].properties[expectedKeyOne]);
-expect(expectedValueTwo).toEqual(testWriter.logMessages[0].properties[expectedKeyTwo]);
+expect(expectedValueOne).to.equal(testWriter.logMessages[0].properties[expectedKeyOne]);
+expect(expectedValueTwo).to.equal(testWriter.logMessages[0].properties[expectedKeyTwo]);
 });
 
 it('WhenLoggingAtErrorLevel_WithTags_ThenLogsTags', () => {
@@ -146,7 +147,7 @@ it('WhenLoggingAtErrorLevel_WithTags_ThenLogsTags', () => {
                 .withTag(expectedTag);
   });
   
-expect(expectedTag).toEqual(testWriter.logMessages[0].tags[0]);
+expect(expectedTag).to.equal(testWriter.logMessages[0].tags[0]);
 });
 
 it('WhenLoggingAtErrorLevel_WithMultipleTags_ThenLogsTags', () => {
@@ -159,7 +160,7 @@ it('WhenLoggingAtErrorLevel_WithMultipleTags_ThenLogsTags', () => {
                 .withTag(expectedTagTwo);
   });
   
-expect(testWriter.logMessages[0].tags.indexOf(expectedTagOne) > -1).toEqual(true);
-expect(testWriter.logMessages[0].tags.indexOf(expectedTagTwo) > -1).toEqual(true);
+expect(testWriter.logMessages[0].tags.indexOf(expectedTagOne) > -1).to.equal(true);
+expect(testWriter.logMessages[0].tags.indexOf(expectedTagTwo) > -1).to.equal(true);
 });
 });
