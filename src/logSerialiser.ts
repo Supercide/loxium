@@ -14,9 +14,9 @@ export class LogSerialiser {
             this.ProcessEnrichers(messageLog);
 
             this.ProcessLogWriters(messageLog);
-        }        
+        }
     }
-    
+
     private ProcessEnrichers(messageLog: MessageLog): void {
         if (this._enrichers) {
             this._enrichers.forEach((enricher: IEnrichLogs) => {

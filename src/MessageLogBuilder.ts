@@ -32,7 +32,7 @@ export class MessageLogBuilder implements IBuildLogMessage {
 
     withTag(tag: string): IBuildLogMessage {
         this._tags.push(tag);
-        
+
         return this;
     }
 
@@ -45,7 +45,7 @@ export class MessageLogBuilder implements IBuildLogMessage {
         this._properties.forEach((property: KeyValuePair) => {
             logMessage.addProperty(property.key, property.value);
         });
-        
+
         logMessage.tags = this._tags;
         logMessage.context = this._context;
         logMessage.method = this._method;

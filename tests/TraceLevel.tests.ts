@@ -10,92 +10,92 @@ let testEnricher = new TestEnricher();
 let builder = new LogBuilder();
 let context = 'TraceLevel.test.ts';
 let logger = builder.setContext(context)
-                       .writeTo(testWriter)
-                       .enrichWith(testEnricher)
-                       .setMinimumLevel(LogLevel.Trace)
-                       .createLogger();
+  .writeTo(testWriter)
+  .enrichWith(testEnricher)
+  .setMinimumLevel(LogLevel.Trace)
+  .createLogger();
 
 beforeEach(() => {
   testWriter.logMessages = [];
-  testEnricher.messageLogs = [];  
+  testEnricher.messageLogs = [];
 });
 
 describe('GivenLoggerSetToWarningLevel', () => {
- 
-    it('WhenLoggingAtTraceLevel_ThenLogsMessageAsTrace', () => {    
 
-        logger.Trace((logBuilder) => {
-            logBuilder.withMessage('Hello World');
-        });
+  it('WhenLoggingAtTraceLevel_ThenLogsMessageAsTrace', () => {
 
-      expect(LogLevel.Trace).to.equal(testWriter.logMessages[0].level);
-    });
-  
-    it('WhenLogging_WithEnricher_ThenCallsEnrichers', () => {    
-      
-        logger.Trace((logBuilder) => {
-            logBuilder.withMessage('Hello World');
-        });
-
-      expect(1).to.equal(testEnricher.messageLogs.length);
+    logger.Trace((logBuilder) => {
+      logBuilder.withMessage('Hello World');
     });
 
-    it('WhenLoggingAtTraceLevel_ThenLogsMessage', () => {
-        let expectedMessage = 'Hello World';
+    expect(LogLevel.Trace).to.equal(testWriter.logMessages[0].level);
+  });
 
-        logger.Trace((logBuilder) => {
-            logBuilder.withMessage(expectedMessage);
-        });
+  it('WhenLogging_WithEnricher_ThenCallsEnrichers', () => {
 
-      expect(expectedMessage).to.equal(testWriter.logMessages[0].message);
+    logger.Trace((logBuilder) => {
+      logBuilder.withMessage('Hello World');
     });
 
-    it('WhenLoggingAtTraceLevel_ThenOnlyCallsWriterOnce', () => {
-        let expectedMessage = 'Hello World';
+    expect(1).to.equal(testEnricher.messageLogs.length);
+  });
 
-        logger.Trace((logBuilder) => {
-            logBuilder.withMessage(expectedMessage);
-        });
+  it('WhenLoggingAtTraceLevel_ThenLogsMessage', () => {
+    let expectedMessage = 'Hello World';
 
-      expect(1).to.equal(testWriter.logMessages.length);
+    logger.Trace((logBuilder) => {
+      logBuilder.withMessage(expectedMessage);
     });
 
-    it('WhenLoggingAtInformationLevel_ThenLogMessage', () => {
-      logger.Information((logBuilder) => {
-          logBuilder.withMessage('Hello World');
-      });
+    expect(expectedMessage).to.equal(testWriter.logMessages[0].message);
+  });
+
+  it('WhenLoggingAtTraceLevel_ThenOnlyCallsWriterOnce', () => {
+    let expectedMessage = 'Hello World';
+
+    logger.Trace((logBuilder) => {
+      logBuilder.withMessage(expectedMessage);
+    });
+
+    expect(1).to.equal(testWriter.logMessages.length);
+  });
+
+  it('WhenLoggingAtInformationLevel_ThenLogMessage', () => {
+    logger.Information((logBuilder) => {
+      logBuilder.withMessage('Hello World');
+    });
 
     expect(1).to.equal(testWriter.logMessages.length);
   });
 
   it('WhenLoggingAtDebugLevel_ThenLogMessage', () => {
     logger.Debug((logBuilder) => {
-        logBuilder.withMessage('Hello World');
-    });
-
-  expect(1).to.equal(testWriter.logMessages.length);
-});
-
-it('WhenLoggingAtErrorLevel_ThenLogsMessage', () => {
-  logger.Error((logBuilder) => {
       logBuilder.withMessage('Hello World');
-  });
-  
-  it('WhenLoggingAtWarningLevel_ThenLogsMessage', () => {
-    logger.Warn((logBuilder) => {
-        logBuilder.withMessage('Hello World');
     });
-  
-  expect(1).to.equal(testWriter.logMessages.length);
+
+    expect(1).to.equal(testWriter.logMessages.length);
   });
 
-expect(1).to.equal(testWriter.logMessages.length);
-});
+  it('WhenLoggingAtErrorLevel_ThenLogsMessage', () => {
+    logger.Error((logBuilder) => {
+      logBuilder.withMessage('Hello World');
+    });
 
-    it('WhenLoggingAtTraceLevel_ThenLogsContext', () => {
-      logger.Trace((logBuilder) => {
-          logBuilder.withMessage('Hello World');
+    it('WhenLoggingAtWarningLevel_ThenLogsMessage', () => {
+      logger.Warn((logBuilder) => {
+        logBuilder.withMessage('Hello World');
       });
+
+      expect(1).to.equal(testWriter.logMessages.length);
+    });
+
+    expect(1).to.equal(testWriter.logMessages.length);
+  });
+
+  it('WhenLoggingAtTraceLevel_ThenLogsContext', () => {
+    logger.Trace((logBuilder) => {
+      logBuilder.withMessage('Hello World');
+    });
 
     expect(context).to.equal(testWriter.logMessages[0].context);
   });
@@ -104,7 +104,7 @@ expect(1).to.equal(testWriter.logMessages.length);
     let expectedMethod = 'someMethod';
 
     logger.Trace((logBuilder) => {
-        logBuilder.withMessage('Hello World');
+      logBuilder.withMessage('Hello World');
     }, expectedMethod);
 
     expect(expectedMethod).to.equal(testWriter.logMessages[0].method);
@@ -115,51 +115,51 @@ expect(1).to.equal(testWriter.logMessages.length);
     let expectedValue = 'sdfsdfsd';
 
     logger.Trace((logBuilder) => {
-        logBuilder.withMessage('Hello World')
-                  .withProperty(expectedKey, expectedValue);
+      logBuilder.withMessage('Hello World')
+        .withProperty(expectedKey, expectedValue);
     });
 
-  expect(expectedValue).to.equal(testWriter.logMessages[0].properties[expectedKey]);
-});
-
-it('WhenLoggingAtTraceLevel_WithMultipleProperties_ThenLogsProperties', () => {
-  let expectedKeyOne = 'customer_hash';
-  let expectedKeyTwo = 'email_hash';
-  let expectedValueOne = 'sdfsdfsd';
-  let expectedValueTwo = 'wetyuty';
-
-  logger.Trace((logBuilder) => {
-      logBuilder.withMessage('Hello World')
-                .withProperty(expectedKeyOne, expectedValueOne)
-                .withProperty(expectedKeyTwo, expectedValueTwo);
+    expect(expectedValue).to.equal(testWriter.logMessages[0].properties[expectedKey]);
   });
 
-expect(expectedValueOne).to.equal(testWriter.logMessages[0].properties[expectedKeyOne]);
-expect(expectedValueTwo).to.equal(testWriter.logMessages[0].properties[expectedKeyTwo]);
-});
+  it('WhenLoggingAtTraceLevel_WithMultipleProperties_ThenLogsProperties', () => {
+    let expectedKeyOne = 'customer_hash';
+    let expectedKeyTwo = 'email_hash';
+    let expectedValueOne = 'sdfsdfsd';
+    let expectedValueTwo = 'wetyuty';
 
-it('WhenLoggingAtTraceLevel_WithTags_ThenLogsTags', () => {
-  let expectedTag = 'success';
-
-  logger.Trace((logBuilder) => {
+    logger.Trace((logBuilder) => {
       logBuilder.withMessage('Hello World')
-                .withTag(expectedTag);
+        .withProperty(expectedKeyOne, expectedValueOne)
+        .withProperty(expectedKeyTwo, expectedValueTwo);
+    });
+
+    expect(expectedValueOne).to.equal(testWriter.logMessages[0].properties[expectedKeyOne]);
+    expect(expectedValueTwo).to.equal(testWriter.logMessages[0].properties[expectedKeyTwo]);
   });
-  
-expect(expectedTag).to.equal(testWriter.logMessages[0].tags[0]);
-});
 
-it('WhenLoggingAtTraceLevel_WithMultipleTags_ThenLogsTags', () => {
-  let expectedTagOne = 'success';
-  let expectedTagTwo = 'failure';
+  it('WhenLoggingAtTraceLevel_WithTags_ThenLogsTags', () => {
+    let expectedTag = 'success';
 
-  logger.Trace((logBuilder) => {
+    logger.Trace((logBuilder) => {
       logBuilder.withMessage('Hello World')
-                .withTag(expectedTagOne)
-                .withTag(expectedTagTwo);
+        .withTag(expectedTag);
+    });
+
+    expect(expectedTag).to.equal(testWriter.logMessages[0].tags[0]);
   });
-  
-expect(testWriter.logMessages[0].tags.indexOf(expectedTagOne) > -1).to.equal(true);
-expect(testWriter.logMessages[0].tags.indexOf(expectedTagTwo) > -1).to.equal(true);
-});
+
+  it('WhenLoggingAtTraceLevel_WithMultipleTags_ThenLogsTags', () => {
+    let expectedTagOne = 'success';
+    let expectedTagTwo = 'failure';
+
+    logger.Trace((logBuilder) => {
+      logBuilder.withMessage('Hello World')
+        .withTag(expectedTagOne)
+        .withTag(expectedTagTwo);
+    });
+
+    expect(testWriter.logMessages[0].tags.indexOf(expectedTagOne) > -1).to.equal(true);
+    expect(testWriter.logMessages[0].tags.indexOf(expectedTagTwo) > -1).to.equal(true);
+  });
 });
