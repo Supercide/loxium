@@ -1,14 +1,15 @@
-import {IBuildLogMessage} from './buildLogMessage.interface'
+import {IBuildLogMessage} from './IBuildLogMessage'
 import {LogMessage} from './logMessage'
 import {Property} from './property'
+import { LogLevel } from "./LogLevel";
 
-export class BuildLogMessage implements IBuildLogMessage
+export class MessageLogBuilder implements IBuildLogMessage
 {
     private _message:string;
     private _error:any;
     private _properties:Property[];
     private _tags:string[];
-    constructor(private _level:string){}
+    constructor(private _level:LogLevel){}
 
     withMessage(message: string): IBuildLogMessage {
         this._message = message;
@@ -44,5 +45,4 @@ export class BuildLogMessage implements IBuildLogMessage
 
         return logMessage;
     }
-
 }

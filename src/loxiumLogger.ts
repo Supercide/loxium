@@ -1,100 +1,59 @@
 
-import { ILogger } from './logger.interface'
-import { IBuildLogMessage } from './buildLogMessage.interface'
-import { BuildLogMessage } from './buildLogMessage'
-import { LogMessage } from './logMessage'
-import * as logger from 'loglevel'
-export enum LogLevel {
-    trace = 'trace',
-    debug = 'debug', 
-    information = 'info',
-    warning = 'warn',
-    error = 'error'
-
-}
-
-export class LoggerFactory {
-
-    createLogger(name:string, logLevel:LogLevel) : ILogger {
-        let log = logger.getLogger(name);
-        log.setLevel(logLevel);
-        var originalFactory = log.methodFactory;
-
-        log.methodFactory = function (methodName, logLevel, loggerName) {
-            var rawMethod = originalFactory(methodName, logLevel, loggerName);
-         
-            return function (message) {
-                rawMethod(JSON.stringify(message));
-            };
-        };
-
-        return new LoxiumLogger(log);
-    }
-}
-
+import { ILogger } from './ILogger'
+import { IBuildLogMessage } from "./IBuildLogMessage";
+import { LogLevel } from "./LogLevel";
+import { MessageLogBuilder } from "./buildLogMessage";
+import { LogMessage } from "./logMessage";
 
 export class LoxiumLogger implements ILogger
 {
-    constructor(private _logger:any){
-        
-    }
+    constructor(private _logger:any){ }
 
     error(logMessageBuilder: (b: IBuildLogMessage) => void): void {
-        let buildLogMessage = new BuildLogMessage('error');
-        
-        logMessageBuilder(buildLogMessage);
-
-        this.LogBuildLogMessage(buildLogMessage);
+        this.LogMessage(LogLevel.error, logMessageBuilder);
     }
 
+    
     Warn(logMessageBuilder: (b: IBuildLogMessage) => void): void {
-        let buildLogMessage = new BuildLogMessage('warn');
-        logMessageBuilder(buildLogMessage);
-        this.LogBuildLogMessage(buildLogMessage);
-    }
-
-    Debug(logMessageBuilder: (b: IBuildLogMessage) => void): void {
-        let buildLogMessage = new BuildLogMessage('debug');
-        logMessageBuilder(buildLogMessage);
-        this.LogBuildLogMessage(buildLogMessage);
-    }
-
-    Information(logMessageBuilder: (b: IBuildLogMessage) => void): void {
-        let buildLogMessage = new BuildLogMessage('info');
-        logMessageBuilder(buildLogMessage);
-        this.LogBuildLogMessage(buildLogMessage);
-    }
-
-    Verbose(logMessageBuilder: (b: IBuildLogMessage) => void): void {
-        let buildLogMessage = new BuildLogMessage('verbose');
-        logMessageBuilder(buildLogMessage);
-        this.LogBuildLogMessage(buildLogMessage);
+        this.LogMessage(LogLevel.warning, logMessageBuilder);        
     }
     
-    LogBuildLogMessage(buildLogMessage:BuildLogMessage){
-        let logMessage = buildLogMessage.build();
-        
-        this.LogMessage(logMessage);
+    Debug(logMessageBuilder: (b: IBuildLogMessage) => void): void {
+        this.LogMessage(LogLevel.debug, logMessageBuilder);        
+    }
+    
+    Information(logMessageBuilder: (b: IBuildLogMessage) => void): void {
+        this.LogMessage(LogLevel.information, logMessageBuilder);        
+    }
+    
+    Trace(logMessageBuilder: (b: IBuildLogMessage) => void): void {
+        this.LogMessage(LogLevel.trace, logMessageBuilder);        
     }
 
-    LogMessage(logMessage:LogMessage)
+    private LogMessage(level:LogLevel, configuration:(logMessageBuilder:IBuildLogMessage)=>void) {
+        let buildLogMessage = new MessageLogBuilder(level);
+        configuration(buildLogMessage);
+        this.Log(buildLogMessage, level);
+    }
+
+    Log(messageLogBuilder:MessageLogBuilder, level:LogLevel)
     {
-        switch(logMessage.Level)
+        switch(level)
         {
-            case 'error':
-                this._logger.error(logMessage);
+            case LogLevel.error:
+            this._logger.error(messageLogBuilder);
             break;
-            case 'warn':
-                this._logger.warn(logMessage);
+            case LogLevel.warning:
+            this._logger.warn(messageLogBuilder);
             break;
-            case 'debug':
-                this._logger.debug(logMessage);
+            case LogLevel.debug:
+            this._logger.debug(messageLogBuilder);
             break;
-            case 'information':
-                this._logger.info(logMessage);
+            case LogLevel.information:
+            this._logger.info(messageLogBuilder);
             break;
-            case 'verbose':
-                this._logger.verbose(logMessage);    
+            case LogLevel.trace:
+            this._logger.trace(messageLogBuilder);    
             break;
         }
     }
