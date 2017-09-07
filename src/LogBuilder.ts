@@ -1,56 +1,48 @@
 
-import { LogLevel } from "./LogLevel";
-import { IWriteLogMessage } from "./IWriteLogMessage";
-import { IEnrichLogs } from "./IEnrichLogs";
-import { ILogger } from "./ILogger";
-import { LoxiumLogger } from "./loxiumLogger";
-import * as logger from 'loglevel'
-import * as logSerialiser from './logSerialiser'
+import { LogLevel } from './LogLevel';
+import { IWriteLogMessage } from './IWriteLogMessage';
+import { IEnrichLogs } from './IEnrichLogs';
+import { ILogger } from './ILogger';
+import { SequensisLogger } from './SequensisLogger';
+import { LogSerialiser } from './logSerialiser';
 
 export class LogBuilder {
-    private _name: string;
+    private _context: string;
     private _level: LogLevel;
     private _logMessageWriters: IWriteLogMessage[] = [];
-    private _logEnrichers:IEnrichLogs[] = [];
+    private _logEnrichers: IEnrichLogs[] = [];
 
-    writeTo(logMessageWriter:IWriteLogMessage) : LogBuilder
-    {
+    writeTo(logMessageWriter: IWriteLogMessage): LogBuilder {
         this._logMessageWriters.push(logMessageWriter);
 
         return this;
     }
 
-    enrichWith(logEnricher:IEnrichLogs) : LogBuilder
-    {
+    enrichWith(logEnricher: IEnrichLogs): LogBuilder {
         this._logEnrichers.push(logEnricher);
 
         return this;
     }
 
-    setMinimumLevel(logLevel:LogLevel) : LogBuilder
-    {
+    setMinimumLevel(logLevel: LogLevel): LogBuilder {
         this._level = logLevel;
 
         return this;
     }
 
-    setName(name:string) : LogBuilder
-    {
-        this._name = name;
+    setContext(context: string): LogBuilder {
+        this._context = context;
 
         return this;
     }
 
-    createLogger() : ILogger{
-        let log = this.createUnderlyingLogger();
+    createLogger(): ILogger {
+        let serialiser = this.CreateSerialiser();
 
-        return new LoxiumLogger(log);
+        return new SequensisLogger(serialiser, this._context);
     }
 
-    private createUnderlyingLogger(){
-        let log = logger.getLogger(this._name);
-        log.methodFactory = logSerialiser.CreateSerialiser(this._logEnrichers, this._logMessageWriters);
-        log.setLevel(this._level);
-        return log;
+    private CreateSerialiser() {
+        return new LogSerialiser(this._logEnrichers, this._logMessageWriters, this._level);
     }
 }

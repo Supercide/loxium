@@ -1,5 +1,5 @@
-import {LogMessage} from './logMessage'
-export interface IWriteLogMessage
-{
-    write(logMessage:LogMessage);
+import { MessageLog } from './MessageLog';
+
+export interface IWriteLogMessage {
+    write(logMessage: MessageLog);
 }
