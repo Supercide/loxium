@@ -5,7 +5,7 @@ import { MessageLogBuilder } from './MessageLogBuilder';
 import { MessageLog } from './MessageLog';
 import { LogSerialiser } from './logSerialiser';
 
-export class SequensisLogger implements ILogger {    
+export class LoxiumLogger implements ILogger {    
     constructor(private serialiser: LogSerialiser, private _context: string) { 
         
     }

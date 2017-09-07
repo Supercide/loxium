@@ -3,7 +3,7 @@ import { LogLevel } from './LogLevel';
 import { IWriteLogMessage } from './IWriteLogMessage';
 import { IEnrichLogs } from './IEnrichLogs';
 import { ILogger } from './ILogger';
-import { SequensisLogger } from './SequensisLogger';
+import { LoxiumLogger } from './LoxiumLogger';
 import { LogSerialiser } from './logSerialiser';
 
 export class LogBuilder {
@@ -39,7 +39,7 @@ export class LogBuilder {
     createLogger(): ILogger {
         let serialiser = this.CreateSerialiser();
 
-        return new SequensisLogger(serialiser, this._context);
+        return new LoxiumLogger(serialiser, this._context);
     }
 
     private CreateSerialiser() {
