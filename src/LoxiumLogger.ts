@@ -1,9 +1,9 @@
-import { ILogger } from './ILogger';
 import { IBuildLogMessage } from './IBuildLogMessage';
+import { ILogger } from './ILogger';
 import { LogLevel } from './LogLevel';
-import { MessageLogBuilder } from './MessageLogBuilder';
-import { MessageLog } from './MessageLog';
 import { LogSerialiser } from './logSerialiser';
+import { MessageLog } from './MessageLog';
+import { MessageLogBuilder } from './MessageLogBuilder';
 
 export class LoxiumLogger implements ILogger {
         constructor(private serialiser: LogSerialiser, private _context: string) {
@@ -31,9 +31,9 @@ export class LoxiumLogger implements ILogger {
         }
 
         private LogMessage(level: LogLevel, configuration: (b: IBuildLogMessage) => void, method?: string) {
-                let messageLogBuilder = new MessageLogBuilder(level, this._context, method);
+                const messageLogBuilder = new MessageLogBuilder(level, this._context, method);
                 configuration(messageLogBuilder);
-                let messageLog = messageLogBuilder.build();
+                const messageLog = messageLogBuilder.build();
                 this.Log(messageLog);
         }
 

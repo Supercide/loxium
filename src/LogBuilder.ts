@@ -1,10 +1,9 @@
-
-import { LogLevel } from './LogLevel';
-import { IWriteLogMessage } from './IWriteLogMessage';
 import { IEnrichLogs } from './IEnrichLogs';
 import { ILogger } from './ILogger';
-import { LoxiumLogger } from './LoxiumLogger';
+import { IWriteLogMessage } from './IWriteLogMessage';
+import { LogLevel } from './LogLevel';
 import { LogSerialiser } from './logSerialiser';
+import { LoxiumLogger } from './LoxiumLogger';
 
 export class LogBuilder {
     private _context: string;
@@ -37,7 +36,7 @@ export class LogBuilder {
     }
 
     createLogger(): ILogger {
-        let serialiser = this.CreateSerialiser();
+        const serialiser = this.CreateSerialiser();
 
         return new LoxiumLogger(serialiser, this._context);
     }

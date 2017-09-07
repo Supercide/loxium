@@ -17,6 +17,7 @@
     "@types/chai": "^4.0.4",
     "@types/mocha": "^2.2.42",
     "chai": "^4.1.2",
+    "codelyzer": "^3.1.2",
     "karma": "^1.7.1",
     "mocha": "^3.5.0",
     "sinon": "^3.2.1",
@@ -26,6 +27,8 @@
   "scripts": {
     "test": "mocha -r ts-node/register ./tests/**/*.tests.ts",
     "gulp": "gulp",
+    "lint": "npm run tslint \"src/**/*.ts\"",
+    "tslint": "tslint",
     "webpack": "webpack --config webpack.config.js",
     "build": "npm run gulp && npm run webpack"
   },

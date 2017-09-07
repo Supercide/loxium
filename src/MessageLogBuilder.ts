@@ -1,7 +1,7 @@
 import { IBuildLogMessage } from './IBuildLogMessage';
-import { MessageLog } from './MessageLog';
 import { KeyValuePair } from './property';
 import { LogLevel } from './LogLevel';
+import { MessageLog } from './MessageLog';
 
 export class MessageLogBuilder implements IBuildLogMessage {
     private _message: string;
@@ -37,7 +37,7 @@ export class MessageLogBuilder implements IBuildLogMessage {
     }
 
     build(): MessageLog {
-        let logMessage = new MessageLog();
+        const logMessage = new MessageLog();
         logMessage.error = this._error;
         logMessage.level = this.level;
         logMessage.message = this._message;

@@ -1,8 +1,8 @@
+import { MessageLog } from './MessageLog';
+import { LogLevel } from './LogLevel';
 import { IBuildLogMessage } from './IBuildLogMessage';
 import { IEnrichLogs } from './IEnrichLogs';
 import { IWriteLogMessage } from './IWriteLogMessage';
-import { MessageLog } from './MessageLog';
-import { LogLevel } from './LogLevel';
 
 export class LogSerialiser {
     constructor(private _enrichers: IEnrichLogs[], private _writers: IWriteLogMessage[], private _logLevel: LogLevel) {
