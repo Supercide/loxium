@@ -1,7 +1,7 @@
-import { KeyValuePair } from './property';
 import { LogLevel } from './LogLevel';
+import { KeyValuePair } from './property';
 
-export class MessageLog {
+export class LogMessage {
     level: LogLevel;
     tags: string[];
     error: any;

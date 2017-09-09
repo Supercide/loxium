@@ -1,13 +1,14 @@
 import { IBuildLogMessage } from './IBuildLogMessage';
-import { KeyValuePair } from './property';
 import { LogLevel } from './LogLevel';
-import { MessageLog } from './MessageLog';
+import { LogMessage } from './LogMessage';
+import { KeyValuePair } from './property';
 
 export class MessageLogBuilder implements IBuildLogMessage {
     private _message: string;
     private _error: any;
     private _properties: KeyValuePair[] = [];
     private _tags: string[] = [];
+    
     constructor(public level: LogLevel, private _context: string, private _method: string) {
 
     }
@@ -36,8 +37,8 @@ export class MessageLogBuilder implements IBuildLogMessage {
         return this;
     }
 
-    build(): MessageLog {
-        const logMessage = new MessageLog();
+    build(): LogMessage {
+        const logMessage = new LogMessage();
         logMessage.error = this._error;
         logMessage.level = this.level;
         logMessage.message = this._message;

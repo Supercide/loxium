@@ -1,5 +1,5 @@
-import { MessageLog } from './MessageLog';
+import { LogMessage } from './LogMessage';
 
 export interface IEnrichLogs {
-    enrich(messageLog: MessageLog);
+    enrich(messageLog: LogMessage);
 }
