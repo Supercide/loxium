@@ -1,11 +1,11 @@
 import { IWriteLogMessage } from '../src/IWriteLogMessage';
-import { MessageLog } from '../src/MessageLog';
+import { LogMessage } from '../src/LogMessage';
 
 export class TestWriter implements IWriteLogMessage {
 
-    logMessages: MessageLog[] = [];
+    logMessages: LogMessage[] = [];
 
-    write(logMessage: MessageLog) {
+    write(logMessage: LogMessage) {
         this.logMessages.push(logMessage);
     }
 }

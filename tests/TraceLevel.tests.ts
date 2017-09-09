@@ -24,7 +24,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
 
   it('WhenLoggingAtTraceLevel_ThenLogsMessageAsTrace', () => {
 
-    logger.Trace((logBuilder) => {
+    logger.trace((logBuilder) => {
       logBuilder.withMessage('Hello World');
     });
 
@@ -33,7 +33,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
 
   it('WhenLogging_WithEnricher_ThenCallsEnrichers', () => {
 
-    logger.Trace((logBuilder) => {
+    logger.trace((logBuilder) => {
       logBuilder.withMessage('Hello World');
     });
 
@@ -43,7 +43,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
   it('WhenLoggingAtTraceLevel_ThenLogsMessage', () => {
     let expectedMessage = 'Hello World';
 
-    logger.Trace((logBuilder) => {
+    logger.trace((logBuilder) => {
       logBuilder.withMessage(expectedMessage);
     });
 
@@ -53,7 +53,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
   it('WhenLoggingAtTraceLevel_ThenOnlyCallsWriterOnce', () => {
     let expectedMessage = 'Hello World';
 
-    logger.Trace((logBuilder) => {
+    logger.trace((logBuilder) => {
       logBuilder.withMessage(expectedMessage);
     });
 
@@ -61,7 +61,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
   });
 
   it('WhenLoggingAtInformationLevel_ThenLogMessage', () => {
-    logger.Information((logBuilder) => {
+    logger.information((logBuilder) => {
       logBuilder.withMessage('Hello World');
     });
 
@@ -69,7 +69,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
   });
 
   it('WhenLoggingAtDebugLevel_ThenLogMessage', () => {
-    logger.Debug((logBuilder) => {
+    logger.debug((logBuilder) => {
       logBuilder.withMessage('Hello World');
     });
 
@@ -77,12 +77,12 @@ describe('GivenLoggerSetToWarningLevel', () => {
   });
 
   it('WhenLoggingAtErrorLevel_ThenLogsMessage', () => {
-    logger.Error((logBuilder) => {
+    logger.error((logBuilder) => {
       logBuilder.withMessage('Hello World');
     });
 
     it('WhenLoggingAtWarningLevel_ThenLogsMessage', () => {
-      logger.Warn((logBuilder) => {
+      logger.warn((logBuilder) => {
         logBuilder.withMessage('Hello World');
       });
 
@@ -93,7 +93,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
   });
 
   it('WhenLoggingAtTraceLevel_ThenLogsContext', () => {
-    logger.Trace((logBuilder) => {
+    logger.trace((logBuilder) => {
       logBuilder.withMessage('Hello World');
     });
 
@@ -103,7 +103,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
   it('WhenLoggingAtTraceLevel_WithMethod_ThenLogsMethod', () => {
     let expectedMethod = 'someMethod';
 
-    logger.Trace((logBuilder) => {
+    logger.trace((logBuilder) => {
       logBuilder.withMessage('Hello World');
     }, expectedMethod);
 
@@ -114,7 +114,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
     let expectedKey = 'customer_hash';
     let expectedValue = 'sdfsdfsd';
 
-    logger.Trace((logBuilder) => {
+    logger.trace((logBuilder) => {
       logBuilder.withMessage('Hello World')
         .withProperty(expectedKey, expectedValue);
     });
@@ -128,7 +128,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
     let expectedValueOne = 'sdfsdfsd';
     let expectedValueTwo = 'wetyuty';
 
-    logger.Trace((logBuilder) => {
+    logger.trace((logBuilder) => {
       logBuilder.withMessage('Hello World')
         .withProperty(expectedKeyOne, expectedValueOne)
         .withProperty(expectedKeyTwo, expectedValueTwo);
@@ -141,7 +141,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
   it('WhenLoggingAtTraceLevel_WithTags_ThenLogsTags', () => {
     let expectedTag = 'success';
 
-    logger.Trace((logBuilder) => {
+    logger.trace((logBuilder) => {
       logBuilder.withMessage('Hello World')
         .withTag(expectedTag);
     });
@@ -153,7 +153,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
     let expectedTagOne = 'success';
     let expectedTagTwo = 'failure';
 
-    logger.Trace((logBuilder) => {
+    logger.trace((logBuilder) => {
       logBuilder.withMessage('Hello World')
         .withTag(expectedTagOne)
         .withTag(expectedTagTwo);

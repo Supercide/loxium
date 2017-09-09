@@ -1,8 +1,8 @@
 import { IBuildLogMessage } from './IBuildLogMessage';
 import { ILogger } from './ILogger';
 import { LogLevel } from './LogLevel';
+import { LogMessage } from './LogMessage';
 import { LogSerialiser } from './logSerialiser';
-import { MessageLog } from './MessageLog';
 import { MessageLogBuilder } from './MessageLogBuilder';
 
 export class LoxiumLogger implements ILogger {
@@ -10,23 +10,23 @@ export class LoxiumLogger implements ILogger {
 
         }
 
-        Error(messageLogBuilder: (b: IBuildLogMessage) => void, method?: string): void {
+        error(messageLogBuilder: (b: IBuildLogMessage) => void, method?: string): void {
                 this.LogMessage(LogLevel.Error, messageLogBuilder, method);
         }
 
-        Warn(messageLogBuilder: (b: IBuildLogMessage) => void, method?: string): void {
+        warn(messageLogBuilder: (b: IBuildLogMessage) => void, method?: string): void {
                 this.LogMessage(LogLevel.Warn, messageLogBuilder, method);
         }
 
-        Debug(messageLogBuilder: (b: IBuildLogMessage) => void, method?: string): void {
+        debug(messageLogBuilder: (b: IBuildLogMessage) => void, method?: string): void {
                 this.LogMessage(LogLevel.Debug, messageLogBuilder, method);
         }
 
-        Information(messageLogBuilder: (b: IBuildLogMessage) => void, method?: string): void {
+        information(messageLogBuilder: (b: IBuildLogMessage) => void, method?: string): void {
                 this.LogMessage(LogLevel.Info, messageLogBuilder, method);
         }
 
-        Trace(messageLogBuilder: (b: IBuildLogMessage) => void, method?: string): void {
+        trace(messageLogBuilder: (b: IBuildLogMessage) => void, method?: string): void {
                 this.LogMessage(LogLevel.Trace, messageLogBuilder, method);
         }
 
@@ -37,7 +37,7 @@ export class LoxiumLogger implements ILogger {
                 this.Log(messageLog);
         }
 
-        private Log(messageLog: MessageLog) {
+        private Log(messageLog: LogMessage) {
                 this.serialiser.Write(messageLog);
         }
 }
