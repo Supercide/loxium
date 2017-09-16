@@ -1,0 +1,37 @@
+{
+  "name": "loxium",
+  "version": "1.0.0",
+  "description": "logging framework",
+  "main": "main.js",
+  "dependencies": {
+    "file-system": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^3.2.2",
+    "path": "^0.12.7",
+    "typescript": "^2.5.2",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "devDependencies": {
+    "expose-loader": "^0.7.3",
+    "webpack": "^3.6.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gulp": "gulp",
+    "webpack": "webpack --config webpack.config.js",
+    "build": "npm run gulp && npm run webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Supercide/loxium.git"
+  },
+  "keywords": [
+    "logging"
+  ],
+  "author": "Jordan anderson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Supercide/loxium/issues"
+  },
+  "homepage": "https://github.com/Supercide/loxium#readme"
+}
