@@ -1,13 +1,13 @@
 const path = require('path');
 
 module.exports = {
-  entry: './lib/helloworld.js',
+  entry: './lib/index.js',
   module: {
     rules: [{
-            test: require.resolve('./lib/helloworld'),
+            test: require.resolve('./lib/index'),
             use: [{
                 loader: 'expose-loader',
-                options: 'HelloWorld'
+                options: 'log'
             }]
         }]
   },
