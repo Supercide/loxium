@@ -7,7 +7,7 @@ module.exports = {
             test: require.resolve('./lib/index'),
             use: [{
                 loader: 'expose-loader',
-                options: 'log'
+                options: 'loxium'
             }]
         }]
   },
