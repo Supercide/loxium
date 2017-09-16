@@ -1,5 +1,4 @@
 import { LogLevel } from './LogLevel';
-import { KeyValuePair } from './property';
 
 export class LogMessage {
     level: LogLevel;
@@ -12,7 +11,7 @@ export class LogMessage {
 
     constructor() {
         this.tags = [];
-        this.properties = [];
+        this.properties = {};
     }
 
     addTags(tag: string): void {

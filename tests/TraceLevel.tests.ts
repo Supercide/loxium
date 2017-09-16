@@ -10,14 +10,14 @@ let testEnricher = new TestEnricher();
 let builder = new LogBuilder();
 let context = 'TraceLevel.test.ts';
 let logger = builder.setContext(context)
-  .writeTo(testWriter)
-  .enrichWith(testEnricher)
-  .setMinimumLevel(LogLevel.Trace)
-  .createLogger();
+                    .writeTo(testWriter)
+                    .enrichWith(testEnricher)
+                    .setMinimumLevel(LogLevel.Trace)
+                    .build();
 
 beforeEach(() => {
   testWriter.logMessages = [];
-  testEnricher.messageLogs = [];
+  testEnricher.callCount = 0;
 });
 
 describe('GivenLoggerSetToWarningLevel', () => {
@@ -26,7 +26,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
 
     logger.trace((logBuilder) => {
       logBuilder.withMessage('Hello World');
-    });
+    }, 'someMethod');
 
     expect(LogLevel.Trace).to.equal(testWriter.logMessages[0].level);
   });
@@ -35,9 +35,9 @@ describe('GivenLoggerSetToWarningLevel', () => {
 
     logger.trace((logBuilder) => {
       logBuilder.withMessage('Hello World');
-    });
+    }, 'someMethod');
 
-    expect(1).to.equal(testEnricher.messageLogs.length);
+    expect(1).to.equal(testEnricher.callCount);
   });
 
   it('WhenLoggingAtTraceLevel_ThenLogsMessage', () => {
@@ -45,7 +45,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
 
     logger.trace((logBuilder) => {
       logBuilder.withMessage(expectedMessage);
-    });
+    }, 'someMethod');
 
     expect(expectedMessage).to.equal(testWriter.logMessages[0].message);
   });
@@ -55,7 +55,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
 
     logger.trace((logBuilder) => {
       logBuilder.withMessage(expectedMessage);
-    });
+    }, 'someMethod');
 
     expect(1).to.equal(testWriter.logMessages.length);
   });
@@ -63,7 +63,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
   it('WhenLoggingAtInformationLevel_ThenLogMessage', () => {
     logger.information((logBuilder) => {
       logBuilder.withMessage('Hello World');
-    });
+    }, 'someMethod');
 
     expect(1).to.equal(testWriter.logMessages.length);
   });
@@ -71,7 +71,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
   it('WhenLoggingAtDebugLevel_ThenLogMessage', () => {
     logger.debug((logBuilder) => {
       logBuilder.withMessage('Hello World');
-    });
+    }, 'someMethod');
 
     expect(1).to.equal(testWriter.logMessages.length);
   });
@@ -79,12 +79,12 @@ describe('GivenLoggerSetToWarningLevel', () => {
   it('WhenLoggingAtErrorLevel_ThenLogsMessage', () => {
     logger.error((logBuilder) => {
       logBuilder.withMessage('Hello World');
-    });
+    }, 'someMethod');
 
     it('WhenLoggingAtWarningLevel_ThenLogsMessage', () => {
       logger.warn((logBuilder) => {
         logBuilder.withMessage('Hello World');
-      });
+      }, 'someMethod');
 
       expect(1).to.equal(testWriter.logMessages.length);
     });
@@ -95,7 +95,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
   it('WhenLoggingAtTraceLevel_ThenLogsContext', () => {
     logger.trace((logBuilder) => {
       logBuilder.withMessage('Hello World');
-    });
+    }, 'someMethod');
 
     expect(context).to.equal(testWriter.logMessages[0].context);
   });
@@ -116,8 +116,8 @@ describe('GivenLoggerSetToWarningLevel', () => {
 
     logger.trace((logBuilder) => {
       logBuilder.withMessage('Hello World')
-        .withProperty(expectedKey, expectedValue);
-    });
+                .withProperty(expectedKey, expectedValue);
+    }, 'someMethod');
 
     expect(expectedValue).to.equal(testWriter.logMessages[0].properties[expectedKey]);
   });
@@ -130,9 +130,9 @@ describe('GivenLoggerSetToWarningLevel', () => {
 
     logger.trace((logBuilder) => {
       logBuilder.withMessage('Hello World')
-        .withProperty(expectedKeyOne, expectedValueOne)
-        .withProperty(expectedKeyTwo, expectedValueTwo);
-    });
+                .withProperty(expectedKeyOne, expectedValueOne)
+                .withProperty(expectedKeyTwo, expectedValueTwo);
+    }, 'someMethod');
 
     expect(expectedValueOne).to.equal(testWriter.logMessages[0].properties[expectedKeyOne]);
     expect(expectedValueTwo).to.equal(testWriter.logMessages[0].properties[expectedKeyTwo]);
@@ -144,7 +144,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
     logger.trace((logBuilder) => {
       logBuilder.withMessage('Hello World')
         .withTag(expectedTag);
-    });
+    }, 'someMethod');
 
     expect(expectedTag).to.equal(testWriter.logMessages[0].tags[0]);
   });
@@ -155,11 +155,49 @@ describe('GivenLoggerSetToWarningLevel', () => {
 
     logger.trace((logBuilder) => {
       logBuilder.withMessage('Hello World')
-        .withTag(expectedTagOne)
-        .withTag(expectedTagTwo);
-    });
+                .withTag(expectedTagOne)
+                .withTag(expectedTagTwo);
+    }, 'someMethod');
 
     expect(testWriter.logMessages[0].tags.indexOf(expectedTagOne) > -1).to.equal(true);
     expect(testWriter.logMessages[0].tags.indexOf(expectedTagTwo) > -1).to.equal(true);
+  });
+  
+  it('WhenLogging_WithEnricher_ThenEnrichesLogMessage', () => {
+    
+    logger.trace((logBuilder) => {
+      logBuilder.withMessage('Hello World');
+    }, 'someMethod');
+
+    expect(true).to.equal(testWriter.logMessages[0].properties['enriched']);
+  });
+  it('WhenLoggingWithPropertyUsingSamePropertyInEnricher_ThenWithPropertyOverridesEnricher', () => {
+    
+    logger.trace((logBuilder) => {
+      logBuilder.withMessage('Hello World')
+                .withProperty('enriched', false);
+    }, 'someMethod');
+
+    expect(false).to.equal(testWriter.logMessages[0].properties['enriched']);
+  });
+  it('WhenLoggingWithEnricher_ThenLogContainsEnrichersTags ', () => {
+    
+    logger.trace((logBuilder) => {
+      logBuilder.withMessage('Hello World');
+    }, 'someMethod');
+
+    expect(testWriter.logMessages[0].tags.indexOf('EnrichedTag') > -1).to.equal(true);
+  });
+
+  it('WhenLoggingWithDuplicateTagsFromEnricherAndExplicitlySetTags_ThenRemovesDuplicateTags ', () => {
+    
+    logger.trace((logBuilder) => {
+      logBuilder.withMessage('Hello World')
+                .withProperty('enriched', false)
+                .withTag('EnrichedTag');
+    }, 'someMethod');
+
+    expect(testWriter.logMessages[0].tags.length).to.equal(1);
+    expect(testWriter.logMessages[0].tags[0]).to.equal('EnrichedTag');
   });
 });

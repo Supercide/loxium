@@ -1,9 +1,10 @@
+
+import { LogLevel } from './LogLevel';
+import { IWriteLogMessage } from './IWriteLogMessage';
 import { IEnrichLogs } from './IEnrichLogs';
 import { ILogger } from './ILogger';
-import { IWriteLogMessage } from './IWriteLogMessage';
-import { LogLevel } from './LogLevel';
-import { LogSerialiser } from './logSerialiser';
 import { LoxiumLogger } from './LoxiumLogger';
+import { LogSerialiser } from './logSerialiser';
 
 export class LogBuilder {
     private _context: string;
@@ -35,13 +36,13 @@ export class LogBuilder {
         return this;
     }
 
-    createLogger(): ILogger {
-        const serialiser = this.CreateSerialiser();
+    build(): ILogger {
+        let serialiser = this.createSerialiser();
 
         return new LoxiumLogger(serialiser, this._context);
     }
 
-    private CreateSerialiser() {
+    private createSerialiser() {
         return new LogSerialiser(this._logEnrichers, this._logMessageWriters, this._level);
     }
 }

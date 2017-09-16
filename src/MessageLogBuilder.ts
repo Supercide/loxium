@@ -1,14 +1,12 @@
 import { IBuildLogMessage } from './IBuildLogMessage';
-import { LogLevel } from './LogLevel';
 import { LogMessage } from './LogMessage';
-import { KeyValuePair } from './property';
+import { LogLevel } from './LogLevel';
 
 export class MessageLogBuilder implements IBuildLogMessage {
     private _message: string;
     private _error: any;
-    private _properties: KeyValuePair[] = [];
-    private _tags: string[] = [];
-    
+    private _properties: any = {};
+    private _tags: any = {};
     constructor(public level: LogLevel, private _context: string, private _method: string) {
 
     }
@@ -19,8 +17,8 @@ export class MessageLogBuilder implements IBuildLogMessage {
         return this;
     }
 
-    withProperty(property: string, value: string): IBuildLogMessage {
-        this._properties.push(new KeyValuePair(property, value));
+    withProperty(property: string, value: any): IBuildLogMessage {
+        this._properties[property] = value;
 
         return this;
     }
@@ -32,22 +30,18 @@ export class MessageLogBuilder implements IBuildLogMessage {
     }
 
     withTag(tag: string): IBuildLogMessage {
-        this._tags.push(tag);
+        this._tags[tag] = tag;
 
         return this;
     }
 
     build(): LogMessage {
-        const logMessage = new LogMessage();
+        let logMessage = new LogMessage();
         logMessage.error = this._error;
         logMessage.level = this.level;
         logMessage.message = this._message;
-
-        this._properties.forEach((property: KeyValuePair) => {
-            logMessage.addProperty(property.key, property.value);
-        });
-
-        logMessage.tags = this._tags;
+        logMessage.properties = this._properties;
+        logMessage.tags = Object.keys(this._tags);
         logMessage.context = this._context;
         logMessage.method = this._method;
 
