@@ -21,8 +21,9 @@ for:
     branches:
       only:
         - master
-  
-    version: $(version)
+
+    before_build:
+      - ps: Update-AppveyorBuild -Version $(version)
   
     on_failure:
       - ps: Update-AppveyorBuild -Version "$($env:appveyor_build_version)-$(Get-Date -format HHmmss)-failed"    
@@ -40,7 +41,8 @@ for:
       except:
         - master
   
-    version: $(version).{build}-{branch}
+    before_build:
+      - ps: Update-AppveyorBuild -Version $(version).{build}-{branch}
   
     on_failure:
       - ps: Update-AppveyorBuild -Version "$($env:appveyor_build_version)-$(Get-Date -format HHmmss)-failed"
