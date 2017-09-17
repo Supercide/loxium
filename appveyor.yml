@@ -14,7 +14,7 @@ skip_tags: true
 build: off
 
 build_script:
-  - npm test
+  - npm test -- --reporter mocha-appveyor-reporter
 
 for:
   -
