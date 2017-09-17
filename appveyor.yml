@@ -26,13 +26,14 @@ for:
       - ps: Update-AppveyorBuild -Version "$($env:appveyor_build_version)-$(Get-Date -format HHmmss)-failed"    
       
     on_success:
-      - ps: Update-AppveyorBuild -Version "$($env:version)"    
+      - ps: Update-AppveyorBuild -Version "$($env:version)"  
+      - npm publish  
       - ps: git config --global credential.helper store
       - ps: git config --global user.email "$($env:Git_Email)"
       - ps: git config --global user.name "$($env:Git_Username)"
       - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:Git_Username):$($env:Git_Password)@github.com`n"
       - ps: git tag $($env:appveyor_build_version) $($env:APPVEYOR_REPO_COMMIT)
-      - git push --tags
+      - git push --tags      
   
   -
     branches:
