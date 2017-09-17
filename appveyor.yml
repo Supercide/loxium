@@ -23,7 +23,7 @@ for:
         - master
 
     before_build:
-      - ps: Update-AppveyorBuild -Version $(version)
+      - ps: Update-AppveyorBuild -Version "$($env:version)"
   
     on_failure:
       - ps: Update-AppveyorBuild -Version "$($env:appveyor_build_version)-$(Get-Date -format HHmmss)-failed"    
@@ -42,7 +42,7 @@ for:
         - master
   
     before_build:
-      - ps: Update-AppveyorBuild -Version $(version).{build}-{branch}
+      - ps: Update-AppveyorBuild -Version "$($env:version).$($env:APPVEYOR_BUILD_NUMBER)-$($env:APPVEYOR_REPO_BRANCH)"
   
     on_failure:
       - ps: Update-AppveyorBuild -Version "$($env:appveyor_build_version)-$(Get-Date -format HHmmss)-failed"
