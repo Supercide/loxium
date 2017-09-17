@@ -1,6 +1,6 @@
 {
   "name": "loxium",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "description": "logging framework",
   "main": "./lib/loxium.js",
   "engines": {
