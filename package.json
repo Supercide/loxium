@@ -39,7 +39,8 @@
     "tslint": "tslint",
     "webpack": "webpack --config webpack.config.js",
     "build": "npm run gulp && npm run webpack",
-    "ci": "npm install && typings install && npm run lint && npm test && npm run build"
+    "ci": "npm install && typings install && npm run lint && npm test && npm run build",
+    "ci:appveyor": "npm install && typings install && npm run lint && npm test -- --reporter mocha-appveyor-reporter && npm run build"
   },
   "repository": {
     "type": "git",
