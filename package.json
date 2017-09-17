@@ -23,7 +23,6 @@
     "karma": "^1.7.1",
     "mocha": "^3.5.0",
     "ts-node": "^3.3.0",
-    "typings": "^2.1.1",
     "webpack": "^3.6.0",
     "webpack-stream": "^4.0.0"
   },
