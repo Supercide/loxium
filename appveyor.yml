@@ -1,9 +1,10 @@
 # shared 
 environment:
-  version: (Get-Content -Raw -Path package.json | ConvertFrom-Json).version
+  version: 1
   nodejs_version: "8"
 
 install:
+  - ps: $env:version=(Get-Content -Raw -Path package.json | ConvertFrom-Json).version
   - ps: Install-Product node $env:nodejs_version  
   - ps: '"//registry.npmjs.org/:_authToken=$env:npm_auth_token`n" | out-file "$env:userprofile\.npmrc" -Encoding ASCII'
   - npm i -g typings  
