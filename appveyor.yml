@@ -1,0 +1,40 @@
+# shared 
+environment:
+  version: 1.0.0
+
+skip_tags: true
+
+build: off
+
+build_script:
+  - ps: npm install
+  - ps: npm test
+
+for:
+  -
+    branches:
+      only:
+        - master
+  
+    version: $(version)
+  
+    on_failure:
+      - ps: Update-AppveyorBuild -Version "$($env:appveyor_build_version)-$(Get-Date -format HHmmss)-failed"    
+      
+    on_success:
+      - ps: git config --global credential.helper store
+      - ps: git config --global user.email "$($env:Git_Email)"
+      - ps: git config --global user.name "$($env:Git_Username)"
+      - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:Git_Username):$($env:Git_Password)@github.com`n"
+      - ps: git tag $($env:appveyor_build_version) $($env:APPVEYOR_REPO_COMMIT)
+      - git push --tags
+  
+  -
+    branches:
+      except:
+        - master
+  
+    version: $(version).{build}-{branch}
+  
+    on_failure:
+      - ps: Update-AppveyorBuild -Version "$($env:appveyor_build_version)-$(Get-Date -format HHmmss)-failed"    
