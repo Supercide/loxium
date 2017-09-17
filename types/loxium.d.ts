@@ -32,6 +32,13 @@ export abstract class Logger {
 }
 
 export class LogMessage {
+    level: LogLevel;
+    tags: string[];
+    error: any;
+    properties: any;
+    message: string;
+    context: string;
+    method: string;
     constructor();
     addProperty(property: string, value: any): void;
     addTags(tag: string): void;
@@ -48,7 +55,7 @@ export class LogSerialiser {
 }
 
 export class LoxiumLogger implements Logger {
-    constructor(serialiser: LogSerialiser, _context: string);
+    constructor(_serialiser: LogSerialiser, _context: string);
 
     error(messageLogBuilder: (b: BuildLogMessage) => void, method?: string): void;
 

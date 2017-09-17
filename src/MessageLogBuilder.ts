@@ -1,6 +1,6 @@
 import { BuildLogMessage } from './BuildLogMessage';
-import { LogMessage } from './LogMessage';
 import { LogLevel } from './LogLevel';
+import { LogMessage } from './LogMessage';
 
 export class MessageLogBuilder implements BuildLogMessage {
     private _message: string;
@@ -36,7 +36,7 @@ export class MessageLogBuilder implements BuildLogMessage {
     }
 
     build(): LogMessage {
-        let logMessage = new LogMessage();
+        const logMessage = new LogMessage();
         logMessage.error = this._error;
         logMessage.level = this.level;
         logMessage.message = this._message;

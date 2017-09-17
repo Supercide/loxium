@@ -1,8 +1,8 @@
 import { BuildLogMessage } from './BuildLogMessage';
 import { EnrichLogs } from './EnrichLogs';
-import { WriteLogMessage } from './WriteLogMessage';
-import { LogMessage } from './LogMessage';
 import { LogLevel } from './LogLevel';
+import { LogMessage } from './LogMessage';
+import { WriteLogMessage } from './WriteLogMessage';
 
 export class LogSerialiser {
     constructor(private _enrichers: EnrichLogs[], private _writers: WriteLogMessage[], private _logLevel: LogLevel) {
@@ -22,7 +22,7 @@ export class LogSerialiser {
         let tags: string[] = [];
         if (this._enrichers) {
             this._enrichers.forEach((enricher: EnrichLogs) => {
-                let enrichedProperties = enricher.enrichProperties();
+                const enrichedProperties = enricher.enrichProperties();
 
                 tags = tags.concat(enricher.enrichTags());
 

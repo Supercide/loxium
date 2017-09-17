@@ -1,12 +1,12 @@
-import { Logger } from './Logger';
 import { BuildLogMessage } from './BuildLogMessage';
+import { Logger } from './Logger';
 import { LogLevel } from './LogLevel';
-import { MessageLogBuilder } from './MessageLogBuilder';
 import { LogMessage } from './LogMessage';
 import { LogSerialiser } from './logSerialiser';
+import { MessageLogBuilder } from './MessageLogBuilder';
 
 export class LoxiumLogger implements Logger {
-    constructor(private serialiser: LogSerialiser, private _context: string) {
+    constructor(private _serialiser: LogSerialiser, private _context: string) {
     }
 
     error(messageLogBuilder: (b: BuildLogMessage) => void, method?: string): void {
@@ -30,13 +30,13 @@ export class LoxiumLogger implements Logger {
     }
 
     private LogMessage(level: LogLevel, configuration: (b: BuildLogMessage) => void, method?: string) {
-        let messageLogBuilder = new MessageLogBuilder(level, this._context, method);
+        const messageLogBuilder = new MessageLogBuilder(level, this._context, method);
         configuration(messageLogBuilder);
-        let messageLog = messageLogBuilder.build();
+        const messageLog = messageLogBuilder.build();
         this.Log(messageLog);
     }
 
     private Log(messageLog: LogMessage) {
-        this.serialiser.Write(messageLog);
+        this._serialiser.Write(messageLog);
     }
 }
