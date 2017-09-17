@@ -1,9 +1,19 @@
 var gulp = require('gulp');
 var ts = require('gulp-typescript');
+var uglify = require('gulp-uglify');
+var webpack = require('webpack-stream');
+var del = require('del');
 
 var tsProject = ts.createProject('tsconfig.json');
 
-gulp.task('precompile', function () {
+gulp.task('clean:all', function () {
+    return del([
+      'dist/**/*',
+      'lib/**/*',
+    ]);
+  });
+
+gulp.task('precompile', ['clean:all'], function () {
 
     let tsResult = tsProject.src()
                             .pipe(tsProject());
@@ -11,4 +21,12 @@ gulp.task('precompile', function () {
     return tsResult.js.pipe(gulp.dest('lib'));
 });
 
-gulp.task('default', [ 'precompile' ]);
+gulp.task('compile', ['precompile'], function () {
+
+        gulp.src('./lib/index.js')
+            .pipe(webpack(require('./webpack.config.js')))
+            .pipe(uglify())
+            .pipe(gulp.dest('dist/'));
+    });
+
+gulp.task('default', [ 'clean:all', 'precompile', 'compile' ]);

@@ -12,7 +12,7 @@ module.exports = {
         }]
   },
   output: {
-    filename: 'bundle.js',
+    filename: 'loxium.js',
     path: path.resolve(__dirname, 'dist')
   }
 };
