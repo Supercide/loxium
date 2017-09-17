@@ -1,24 +1,25 @@
 
+import { ConsoleWriter } from './ConsoleWriter';
+import { EnrichLogs } from './EnrichLogs';
+import { Logger } from './Logger';
 import { LogLevel } from './LogLevel';
-import { IWriteLogMessage } from './IWriteLogMessage';
-import { IEnrichLogs } from './IEnrichLogs';
-import { ILogger } from './ILogger';
-import { LoxiumLogger } from './LoxiumLogger';
 import { LogSerialiser } from './logSerialiser';
+import { LoxiumLogger } from './LoxiumLogger';
+import { WriteLogMessage } from './WriteLogMessage';
 
 export class LogBuilder {
     private _context: string;
     private _level: LogLevel;
-    private _logMessageWriters: IWriteLogMessage[] = [];
-    private _logEnrichers: IEnrichLogs[] = [];
+    private _logMessageWriters: WriteLogMessage[] = [];
+    private _logEnrichers: EnrichLogs[] = [];
 
-    writeTo(logMessageWriter: IWriteLogMessage): LogBuilder {
+    writeTo(logMessageWriter: WriteLogMessage): LogBuilder {
         this._logMessageWriters.push(logMessageWriter);
 
         return this;
     }
 
-    enrichWith(logEnricher: IEnrichLogs): LogBuilder {
+    enrichWith(logEnricher: EnrichLogs): LogBuilder {
         this._logEnrichers.push(logEnricher);
 
         return this;
@@ -36,13 +37,16 @@ export class LogBuilder {
         return this;
     }
 
-    build(): ILogger {
-        let serialiser = this.createSerialiser();
+    build(): Logger {
+        const serialiser = this.createSerialiser();
 
         return new LoxiumLogger(serialiser, this._context);
     }
 
     private createSerialiser() {
+        if (this._logMessageWriters.length === 0) {
+            this.writeTo(new ConsoleWriter());
+        }
         return new LogSerialiser(this._logEnrichers, this._logMessageWriters, this._level);
     }
 }

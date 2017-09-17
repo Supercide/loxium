@@ -1,8 +1,8 @@
-import { IBuildLogMessage } from './IBuildLogMessage';
-import { LogMessage } from './LogMessage';
+import { BuildLogMessage } from './BuildLogMessage';
 import { LogLevel } from './LogLevel';
+import { LogMessage } from './LogMessage';
 
-export class MessageLogBuilder implements IBuildLogMessage {
+export class MessageLogBuilder implements BuildLogMessage {
     private _message: string;
     private _error: any;
     private _properties: any = {};
@@ -11,32 +11,32 @@ export class MessageLogBuilder implements IBuildLogMessage {
 
     }
 
-    withMessage(message: string): IBuildLogMessage {
+    withMessage(message: string): BuildLogMessage {
         this._message = message;
 
         return this;
     }
 
-    withProperty(property: string, value: any): IBuildLogMessage {
+    withProperty(property: string, value: any): BuildLogMessage {
         this._properties[property] = value;
 
         return this;
     }
 
-    withException(error: any): IBuildLogMessage {
+    withException(error: any): BuildLogMessage {
         this._error = error;
 
         return this;
     }
 
-    withTag(tag: string): IBuildLogMessage {
+    withTag(tag: string): BuildLogMessage {
         this._tags[tag] = tag;
 
         return this;
     }
 
     build(): LogMessage {
-        let logMessage = new LogMessage();
+        const logMessage = new LogMessage();
         logMessage.error = this._error;
         logMessage.level = this.level;
         logMessage.message = this._message;

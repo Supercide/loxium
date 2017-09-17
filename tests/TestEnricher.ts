@@ -1,8 +1,8 @@
-import { IEnrichLogs } from '../src/IEnrichLogs';
-import { IBuildLogMessage } from '../src/IBuildLogMessage';
+import { EnrichLogs } from '../src/EnrichLogs';
+import { BuildLogMessage } from '../src/BuildLogMessage';
 import { LogMessage } from '../src/LogMessage';
 
-export class TestEnricher implements IEnrichLogs {
+export class TestEnricher implements EnrichLogs {
     callCount: number = 0;
 
     enrichTags(): string[] {

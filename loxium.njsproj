@@ -20,8 +20,6 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
-    <Content Include=".gitignore" />
-    <Content Include="LICENSE" />
     <Content Include="package.json" />
     <Content Include="tsconfig.json" />
     <Content Include="tslint.json" />
@@ -37,11 +35,12 @@
     <Folder Include="typings\modules\chai\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="src\IBuildLogMessage.ts" />
-    <TypeScriptCompile Include="src\IEnrichLogs.ts" />
-    <TypeScriptCompile Include="src\ILogger.ts" />
+    <TypeScriptCompile Include="src\ConsoleWriter.ts" />
+    <TypeScriptCompile Include="src\BuildLogMessage.ts" />
+    <TypeScriptCompile Include="src\EnrichLogs.ts" />
+    <TypeScriptCompile Include="src\Logger.ts" />
     <TypeScriptCompile Include="src\index.ts" />
-    <TypeScriptCompile Include="src\IWriteLogMessage.ts" />
+    <TypeScriptCompile Include="src\WriteLogMessage.ts" />
     <TypeScriptCompile Include="src\LogBuilder.ts" />
     <TypeScriptCompile Include="src\LogLevel.ts" />
     <TypeScriptCompile Include="src\LogMessage.ts" />
@@ -49,6 +48,7 @@
     <TypeScriptCompile Include="src\LoxiumLogger.ts" />
     <TypeScriptCompile Include="src\MessageLogBuilder.ts" />
     <TypeScriptCompile Include="tests\DebugLevel.tests.ts" />
+    <TypeScriptCompile Include="tests\DefaultWriter.tests.ts" />
     <TypeScriptCompile Include="tests\ErrorLevel.tests.ts" />
     <TypeScriptCompile Include="tests\InformationLevel.tests.ts" />
     <TypeScriptCompile Include="tests\TestEnricher.ts" />
@@ -61,7 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gulpfile.js" />
-    <Compile Include="index.js" />
     <Compile Include="webpack.config.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
