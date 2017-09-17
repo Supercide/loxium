@@ -22,7 +22,7 @@ for:
       only:
         - master
 
-    before_build:
+    install:
       - ps: Update-AppveyorBuild -Version "$($env:version)"
   
     on_failure:
@@ -41,7 +41,7 @@ for:
       except:
         - master
   
-    before_build:
+    install:
       - ps: Update-AppveyorBuild -Version "$($env:version).$($env:APPVEYOR_BUILD_NUMBER)-$($env:APPVEYOR_REPO_BRANCH)"
   
     on_failure:
