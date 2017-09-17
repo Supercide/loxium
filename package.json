@@ -1,8 +1,8 @@
 {
   "name": "loxium",
-  "version": "0.1.1",
+  "version": "0.1.5",
   "description": "logging framework",
-  "main": "loxium.js",
+  "main": "./lib/loxium.js",
   "engines": {
     "node": ">=4.2.0"
   },
@@ -36,7 +36,8 @@
     "lint": "npm run tslint \"src/**/*.ts\"",
     "tslint": "tslint",
     "webpack": "webpack --config webpack.config.js",
-    "build": "npm run gulp && npm run webpack"
+    "build": "npm run gulp && npm run webpack",
+    "ci" : "npm install && typings install && npm test && npm run build"
   },
   "repository": {
     "type": "git",

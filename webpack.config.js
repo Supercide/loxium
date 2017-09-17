@@ -1,10 +1,10 @@
 const path = require('path');
 
 module.exports = {
-  entry: './lib/index.js',
+  entry: './lib/loxium.js',
   module: {
     rules: [{
-            test: require.resolve('./lib/index'),
+            test: require.resolve('./lib/loxium'),
             use: [{
                 loader: 'expose-loader',
                 options: 'loxium'

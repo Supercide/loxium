@@ -13,7 +13,7 @@ gulp.task('clean:all', function () {
     ]);
   });
 
-gulp.task('precompile', ['clean:all'], function () {
+gulp.task('compile', ['clean:all'], function () {
 
     let tsResult = tsProject.src()
                             .pipe(tsProject());
@@ -21,12 +21,12 @@ gulp.task('precompile', ['clean:all'], function () {
     return tsResult.js.pipe(gulp.dest('lib'));
 });
 
-gulp.task('compile', ['precompile'], function () {
+gulp.task('webpack', ['compile'], function () {
 
-        gulp.src('./lib/index.js')
+        gulp.src('./lib/loxium.js')
             .pipe(webpack(require('./webpack.config.js')))
             .pipe(uglify())
             .pipe(gulp.dest('dist/'));
     });
 
-gulp.task('default', [ 'clean:all', 'precompile', 'compile' ]);
+gulp.task('default', [ 'clean:all', 'compile', 'webpack' ]);

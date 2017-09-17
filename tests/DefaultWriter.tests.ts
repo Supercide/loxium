@@ -26,6 +26,5 @@ describe('GivenLogger_WithNoWriterSet', () => {
         });
 
         expect(log.calledOnce).to.equal(true);
-        expect(log.calledOnce.getCall(0).args[0]).to.equal(true);
     });
 });
