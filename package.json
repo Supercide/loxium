@@ -1,8 +1,11 @@
 {
   "name": "loxium",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "description": "logging framework",
-  "main": "main.js",
+  "main": "loxium.js",
+  "engines": {
+    "node": ">=4.2.0"
+  },
   "dependencies": {},
   "devDependencies": {
     "@types/chai": "^4.0.4",
@@ -19,6 +22,7 @@
     "mocha": "^3.5.0",
     "mocha-appveyor-reporter": "^0.4.0",
     "path": "^0.12.7",
+    "sinon": "^3.2.1",
     "ts-node": "^3.3.0",
     "typescript": "^2.5.2",
     "typings": "^2.1.1",
