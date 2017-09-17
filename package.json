@@ -25,6 +25,7 @@
     "path": "^0.12.7",
     "sinon": "^3.2.1",
     "ts-node": "^3.3.0",
+    "tslint": "^5.7.0",
     "typescript": "^2.5.2",
     "typings": "^2.1.1",
     "vinyl-source-stream": "^1.1.0",
@@ -38,7 +39,7 @@
     "tslint": "tslint",
     "webpack": "webpack --config webpack.config.js",
     "build": "npm run gulp && npm run webpack",
-    "ci" : "npm install && typings install && npm test && npm run build"
+    "ci": "npm install && typings install && npm run lint && npm test && npm run build"
   },
   "repository": {
     "type": "git",
