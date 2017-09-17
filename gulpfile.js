@@ -17,9 +17,14 @@ gulp.task('compile', ['clean:all'], function () {
 
     let tsResult = tsProject.src()
                             .pipe(tsProject());
-
+    
     return tsResult.js.pipe(gulp.dest('lib'));
 });
+
+gulp.task('copy', ['compile', 'webpack'], function() {
+    gulp.src('./types/loxium.d.ts')
+        .pipe(gulp.dest('./lib/'))
+})
 
 gulp.task('webpack', ['compile'], function () {
 
@@ -29,4 +34,4 @@ gulp.task('webpack', ['compile'], function () {
             .pipe(gulp.dest('dist/'));
     });
 
-gulp.task('default', [ 'clean:all', 'compile', 'webpack' ]);
+gulp.task('default', [ 'clean:all', 'compile', 'webpack', 'copy' ]);
