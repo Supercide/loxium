@@ -17,6 +17,7 @@
     "gulp-uglify": "^3.0.0",
     "karma": "^1.7.1",
     "mocha": "^3.5.0",
+    "mocha-appveyor-reporter": "^0.4.0",
     "path": "^0.12.7",
     "ts-node": "^3.3.0",
     "typescript": "^2.5.2",
@@ -26,7 +27,7 @@
     "webpack-stream": "^4.0.0"
   },
   "scripts": {
-    "test": "mocha -r ts-node/register ./tests/**/*.tests.ts",
+    "test": "mocha --reporter mocha-appveyor-reporter -r ts-node/register ./tests/**/*.tests.ts",
     "gulp": "gulp",
     "lint": "npm run tslint \"src/**/*.ts\"",
     "tslint": "tslint",
