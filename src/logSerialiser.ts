@@ -21,7 +21,7 @@ export class LogSerialiser {
 
         if (this._enrichers) {
             this._enrichers.forEach((enricher: EnrichLogs) => {
-                let enrichedMessage = <LogMessage>JSON.parse(JSON.stringify(logMessage));
+                const enrichedMessage = JSON.parse(JSON.stringify(logMessage)) as LogMessage;
 
                 enricher.enrich(enrichedMessage);
 
@@ -30,7 +30,7 @@ export class LogSerialiser {
         }
     }
 
-    private mergeEnrichedMessage(logMessage: LogMessage, enrichedMessage: LogMessage){
+    private mergeEnrichedMessage(logMessage: LogMessage, enrichedMessage: LogMessage) {
         logMessage.properties = Object.assign({}, enrichedMessage.properties, logMessage.properties);                
         logMessage.tags = Array.from(new Set([...logMessage.tags, ...enrichedMessage.tags]));
     }

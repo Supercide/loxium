@@ -13,6 +13,8 @@ skip_tags: true
 
 build: off
 
+test: off
+
 build_script:
   - npm run ci:appveyor
 
