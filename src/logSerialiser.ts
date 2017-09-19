@@ -18,22 +18,21 @@ export class LogSerialiser {
     }
 
     private ProcessEnrichers(logMessage: LogMessage): void {
-        let properties = {};
-        let tags: string[] = [];
+
         if (this._enrichers) {
             this._enrichers.forEach((enricher: EnrichLogs) => {
-                const enrichedProperties = enricher.enrichProperties();
+                let enrichedMessage = <LogMessage>JSON.parse(JSON.stringify(logMessage));
 
-                tags = tags.concat(enricher.enrichTags());
+                enricher.enrich(enrichedMessage);
 
-                if (enrichedProperties) {
-                    properties = Object.assign(properties, enrichedProperties);
-                }
+                this.mergeEnrichedMessage(logMessage, enrichedMessage);
             });
-
-            logMessage.properties = Object.assign(properties, logMessage.properties);
-            logMessage.tags = Array.from(new Set(logMessage.tags.concat(tags)));
         }
+    }
+
+    private mergeEnrichedMessage(logMessage: LogMessage, enrichedMessage: LogMessage){
+        logMessage.properties = Object.assign({}, enrichedMessage.properties, logMessage.properties);                
+        logMessage.tags = Array.from(new Set([...logMessage.tags, ...enrichedMessage.tags]));
     }
 
     private ProcessLogWriters(logMessage: LogMessage) {

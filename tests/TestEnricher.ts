@@ -5,12 +5,9 @@ import { LogMessage } from '../src/LogMessage';
 export class TestEnricher implements EnrichLogs {
     callCount: number = 0;
 
-    enrichTags(): string[] {
-        return new Array('EnrichedTag');
-    }
-
-    enrichProperties(): any {
+    enrich(logMessage: LogMessage) {
+        logMessage.tags.push('EnrichedTag');
+        logMessage.properties['enriched'] = true;
         this.callCount++;
-        return { enriched: true };
     }
 }
