@@ -12,13 +12,15 @@ install:
       If ($env:APPVEYOR_REPO_BRANCH -NotMatch "master") {
         $env:version="$($env:version).$($env:APPVEYOR_BUILD_NUMBER)-$($env:APPVEYOR_REPO_BRANCH)"
       }
-  - ps: Update-AppveyorBuild -Version "$($version)"
 
 skip_tags: true
 
 build: off
 
 test: off
+
+before_build:
+  - ps: Update-AppveyorBuild -Version "$($version)" 
 
 build_script:
   - npm run ci:appveyor
