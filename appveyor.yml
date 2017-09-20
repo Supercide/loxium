@@ -4,10 +4,16 @@ environment:
 
 install:
   - ps: $env:version="$((Get-Content -Raw -Path package.json | ConvertFrom-Json).version)"
-  - ps: Update-AppveyorBuild -Version "$($env:version).$($env:APPVEYOR_BUILD_NUMBER)-$($env:APPVEYOR_REPO_BRANCH)"
   - ps: Install-Product node $env:nodejs_version  
   - ps: '"//registry.npmjs.org/:_authToken=$env:npm_auth_token`n" | out-file "$env:userprofile\.npmrc" -Encoding ASCII'
   - npm i -g typings  
+  - ps: >- 
+      if($($env:APPVEYOR_REPO_BRANCH) == "master")
+      {
+        Update-AppveyorBuild -Version "$($env:version).$($env:APPVEYOR_BUILD_NUMBER)-$($env:APPVEYOR_REPO_BRANCH)"
+      } else {
+        Update-AppveyorBuild -Version "$($env:version)"
+      }
 
 skip_tags: true
 
@@ -35,13 +41,4 @@ for:
       - ps: git config --global user.name "$($env:Git_Username)"
       - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:Git_Username):$($env:Git_Password)@github.com`n"
       - ps: git tag $($env:appveyor_build_version) $($env:APPVEYOR_REPO_COMMIT)
-      - git push --tags      
-  
-  -
-    branches:
-      except:
-        - master
-  
-    on_failure:
-      - ps: Update-AppveyorBuild -Version "$($env:appveyor_build_version)-$(Get-Date -format HHmmss)-failed"
-      - npm publish    
+      - git push --tags
