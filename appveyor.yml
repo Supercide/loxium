@@ -7,7 +7,10 @@ install:
   - ps: Install-Product node $env:nodejs_version  
   - ps: '"//registry.npmjs.org/:_authToken=$env:npm_auth_token`n" | out-file "$env:userprofile\.npmrc" -Encoding ASCII'
   - npm i -g typings  
-  - ps: $version = $env:APPVEYOR_REPO_BRANCH == "master" ?  "$($env:version).$($env:APPVEYOR_BUILD_NUMBER)-$($env:APPVEYOR_REPO_BRANCH)" :  "$($env:version)"
+  - ps: >-
+    If ($env:APPVEYOR_REPO_BRANCH -NotMatch "master") {
+      $env:version="$($env:version).$($env:APPVEYOR_BUILD_NUMBER)-$($env:APPVEYOR_REPO_BRANCH)"
+    }
   - ps: Update-AppveyorBuild -Version "$($version)"
 
 skip_tags: true
@@ -29,7 +32,6 @@ for:
       - ps: Update-AppveyorBuild -Version "$($env:appveyor_build_version)-$(Get-Date -format HHmmss)-failed"    
       
     on_success:
-      - ps: Update-AppveyorBuild -Version "$($env:version)"  
       - npm publish  
       - ps: git config --global credential.helper store
       - ps: git config --global user.email "$($env:Git_Email)"
