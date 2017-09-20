@@ -8,9 +8,9 @@ install:
   - ps: '"//registry.npmjs.org/:_authToken=$env:npm_auth_token`n" | out-file "$env:userprofile\.npmrc" -Encoding ASCII'
   - npm i -g typings  
   - ps: >-
-    If ($env:APPVEYOR_REPO_BRANCH -NotMatch "master") {
-      $env:version="$($env:version).$($env:APPVEYOR_BUILD_NUMBER)-$($env:APPVEYOR_REPO_BRANCH)"
-    }
+      If ($env:APPVEYOR_REPO_BRANCH -NotMatch "master") {
+        $env:version="$($env:version).$($env:APPVEYOR_BUILD_NUMBER)-$($env:APPVEYOR_REPO_BRANCH)"
+      }
   - ps: Update-AppveyorBuild -Version "$($version)"
 
 skip_tags: true
