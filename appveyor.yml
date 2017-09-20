@@ -4,7 +4,6 @@ environment:
 
 install:
   - ps: $env:version="$((Get-Content -Raw -Path package.json | ConvertFrom-Json).version)"
-  - ps: Update-AppveyorBuild -Version "$($env:version).$($env:APPVEYOR_BUILD_NUMBER)-$($env:APPVEYOR_REPO_BRANCH)"
   - ps: Install-Product node $env:nodejs_version  
   - ps: '"//registry.npmjs.org/:_authToken=$env:npm_auth_token`n" | out-file "$env:userprofile\.npmrc" -Encoding ASCII'
   - npm i -g typings  
@@ -23,6 +22,9 @@ for:
     branches:
       only:
         - master
+    
+    before_build: 
+      - ps: Update-AppveyorBuild -Version "$($env:version)"    
 
     on_failure:
       - ps: Update-AppveyorBuild -Version "$($env:appveyor_build_version)-$(Get-Date -format HHmmss)-failed"    
@@ -41,3 +43,6 @@ for:
     branches:
       except:
         - master
+
+    before_build: 
+      - ps: Update-AppveyorBuild -Version "$($env:version).$($env:APPVEYOR_BUILD_NUMBER)-$($env:APPVEYOR_REPO_BRANCH)"
