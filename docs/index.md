@@ -46,6 +46,6 @@ Output:
 ## Installation
 Node - `npm install loxium`
 
-CDN - `<script src=""></script>`
+CDN - `<script src=""></script>` Todo: setup cdn
 
 for more advance examples such as adding properties, tags, contextual information and shipping logs off to a server [see docs](https://github.com/Supercide/loxium/wiki)
