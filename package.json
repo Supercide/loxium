@@ -17,6 +17,7 @@
     "expose-loader": "^0.7.3",
     "file-system": "^2.2.2",
     "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
     "gulp-typescript": "^3.2.2",
     "gulp-uglify": "^3.0.0",
     "karma": "^1.7.1",

@@ -3,6 +3,8 @@ var ts = require('gulp-typescript');
 var uglify = require('gulp-uglify');
 var webpack = require('webpack-stream');
 var del = require('del');
+var project = require('./package.json');
+var rename = require("gulp-rename");
 
 var tsProject = ts.createProject('tsconfig.json');
 
@@ -31,7 +33,8 @@ gulp.task('webpack', ['compile'], function () {
         gulp.src('./lib/loxium.js')
             .pipe(webpack(require('./webpack.config.js')))
             .pipe(uglify())
-            .pipe(gulp.dest('dist/'));
+            .pipe(rename(`loxium-${project.version}.min.js`))
+            .pipe(gulp.dest(`dist/`));
     });
 
 gulp.task('default', [ 'clean:all', 'compile', 'webpack', 'copy' ]);
