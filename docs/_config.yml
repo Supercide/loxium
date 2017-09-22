@@ -1,0 +1,11 @@
+title: Loxium
+description: Structured logging for Node services & all modern browsers.
+show_downloads: false
+github:
+  is_project_page: true
+  repository_url: https://github.com/Supercide/loxium
+  repository_name: Loxium
+  owner_url: https://github.com/Supercide
+  owner_name: Jordan Anderson
+google_analytics:
+theme: jekyll-theme-cayman

@@ -1,15 +1,18 @@
 # shared 
 environment:
-  version: 1.0.0
   nodejs_version: "8"
 
 install:
+  - ps: $env:version="$((Get-Content -Raw -Path package.json | ConvertFrom-Json).version)"
   - ps: Install-Product node $env:nodejs_version  
+  - ps: '"//registry.npmjs.org/:_authToken=$env:npm_auth_token`n" | out-file "$env:userprofile\.npmrc" -Encoding ASCII'
   - npm i -g typings  
 
 skip_tags: true
 
 build: off
+
+test: off
 
 build_script:
   - npm run ci:appveyor
@@ -19,26 +22,27 @@ for:
     branches:
       only:
         - master
-  
-    version: $(version)
-  
+    
+    before_build: 
+      - ps: Update-AppveyorBuild -Version "$($env:version)"    
+
     on_failure:
       - ps: Update-AppveyorBuild -Version "$($env:appveyor_build_version)-$(Get-Date -format HHmmss)-failed"    
       
     on_success:
+      - ps: Update-AppveyorBuild -Version "$($env:version)"  
+      - npm publish  
       - ps: git config --global credential.helper store
       - ps: git config --global user.email "$($env:Git_Email)"
       - ps: git config --global user.name "$($env:Git_Username)"
       - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:Git_Username):$($env:Git_Password)@github.com`n"
       - ps: git tag $($env:appveyor_build_version) $($env:APPVEYOR_REPO_COMMIT)
-      - git push --tags
+      - git push --tags      
   
   -
     branches:
       except:
         - master
-  
-    version: $(version).{build}-{branch}
-  
-    on_failure:
-      - ps: Update-AppveyorBuild -Version "$($env:appveyor_build_version)-$(Get-Date -format HHmmss)-failed"    
+
+    before_build: 
+      - ps: Update-AppveyorBuild -Version "$($env:version).$($env:APPVEYOR_BUILD_NUMBER)-$($env:APPVEYOR_REPO_BRANCH)"
