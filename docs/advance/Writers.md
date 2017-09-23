@@ -25,6 +25,15 @@ Modifications done inside of a writer do not persist outside of the writer.
 Writers are pretty simple, they have one method called `write` which takes a `LogMessage`, what you do with this is up to you.
 
 ### Example creating a writer
-Define your writer. For this example we will 
+In this example we will create a writer that will output our log messages to the console. First lets create our writer
+
+```JS
+let consoleWriter = {
+    write: function(logMessage) {
+        // log logic goes here
+    }
+}
+```
+
 
 [Home](http://www.loxiumjs.com) > [Getting Started](http://www.loxiumjs.com/GettingStarted) > Advance > Writers
