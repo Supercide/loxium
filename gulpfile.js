@@ -46,12 +46,10 @@ gulp.task('copy', ['compile', 'webpack'], function() {
 
 gulp.task('webpack', ['compile'], function () {
 
-      let project = require('./package.json');
-    
         return gulp.src('./lib/loxium.js')
             .pipe(webpack(require('./webpack.config.js')))
             .pipe(uglify())
-            .pipe(rename(`loxium-${project.version}.min.js`))
+            .pipe(rename(`loxium.min.js`))
             .pipe(gulp.dest(`dist/`));
     });
 

@@ -1,10 +1,9 @@
-﻿# loxium
+﻿
+# Loxium - What is it?
 
-lightweight structured logging for JavaScript. Loxium allows you to do so much more then simply log a message, With Loxium not only can you log messages but you can add tags, Properties and enrich your logs with contextual information. It is also built with maximum extensibility allowing you to control where, when and how your logs are sent through it's clean and simple api. Loxium has been heavily influence by Serilog, a logging package for .Net and my co-workers at Sequensis.
-
+Loxium allows you to do so much more than simply log a message, With Loxium not only can you log messages but you can add tags, Properties and enrich your logs with contextual information. It's also built with maximum extensibility allowing you to control where, when and how your logs are sent through it's clean and simple API. Loxium has been heavily influenced by Serilog, a logging package for .Net and my co-workers at Sequensis.
 
 ## Features
-
 
 * Supports standard trace/debug/info/warn/error logging levels 
 * Works in all modern browsers & node.js
@@ -12,9 +11,9 @@ lightweight structured logging for JavaScript. Loxium allows you to do so much m
 * No dependencies, 
 * Highly extensible allowing you to take logging further
 
-### Example
+### Example - Browser
 
-```
+```JS
 let builder = new loxium.LogBuilder();
     
 let logger = builder.setMinimumLevel(loxium.LogLevel.Debug)
@@ -23,16 +22,28 @@ let logger = builder.setMinimumLevel(loxium.LogLevel.Debug)
 logger.debug((logBuilder) => logBuilder.withMessage('hello world'));
 ```
 
-Which will output: 
+Output:
 - `17/09/2017, 14:40:16 [Debug] hello world`
 
-for more advance examples such as adding properties, tags, contextual information and shipping logs off to a server [see docs]() (todo: add getting started guide)
+### Example - Node
+```JS
+import { LogBuilder, LogLevel } from 'loxium'
 
-## Downloading loxium
+let builder = new LogBuilder();
 
-### Via NPM
-`npm install loxium`.
+let logger = builder.setMinimumLevel(LogLevel.Debug)
+                    .build();
 
-### VIA CDN
-(todo: add cdn)
+logger.debug((logBuilder) => logBuilder.withMessage('hello world'));
+```
 
+Output:
+- `17/09/2017, 14:40:16 [Debug] hello world`
+
+## Installation
+Node - `npm install loxium`
+
+CDN - `<script src="https://cdn.jsdelivr.net/npm/loxium@latest/dist/loxium.min.js"></script>`
+
+
+For more advanced examples such as adding properties, tags, contextual information and shipping logs off to a server [see docs](https://www.loxiumjs.com)
