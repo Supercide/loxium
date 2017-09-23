@@ -46,3 +46,6 @@ for:
 
     before_build: 
       - ps: Update-AppveyorBuild -Version "$($env:version).$($env:APPVEYOR_BUILD_NUMBER)-$($env:APPVEYOR_REPO_BRANCH)"
+    
+    on_success:
+      - npm publish --tag next
