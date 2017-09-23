@@ -1,13 +1,13 @@
-import { expect } from 'chai'
+import { expect } from 'chai';
+import * as sinon from 'sinon';
 import { LogBuilder } from '../src/LogBuilder';
 import { LogLevel } from '../src/LogLevel';
-import * as sinon from 'sinon';
 
-let builder = new LogBuilder();
+const builder = new LogBuilder();
 
-let logger = builder.setMinimumLevel(LogLevel.Debug)
+const logger = builder.setMinimumLevel(LogLevel.Debug)
                     .build();
-var log:any;
+let log: any;
 
 beforeEach(() => {
     log = sinon.spy(console, 'log');

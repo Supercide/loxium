@@ -1,23 +1,32 @@
-import { expect } from 'chai'
+import { expect } from 'chai';
+import * as sinon from 'sinon';
 import { LogBuilder } from '../src/LogBuilder';
 import { LogLevel } from '../src/LogLevel';
-import { TestWriter } from './TestWriter';
 import { TestEnricher } from './TestEnricher';
+import { TestWriter } from './TestWriter';
 
-let testWriter = new TestWriter();
-
-let testEnricher = new TestEnricher();
-let builder = new LogBuilder();
-let context = 'InformationLevel.test.ts';
-let logger = builder.setContext(context)
+const testWriter = new TestWriter();
+const testEnricher = new TestEnricher();
+const builder = new LogBuilder();
+const context = 'InformationLevel.test.ts';
+const logger = builder.setContext(context)
                     .writeTo(testWriter)
                     .enrichWith(testEnricher)
                     .setMinimumLevel(LogLevel.Info)
                     .build();
 
+const expected = new Date();
+let clock;
+                    
 beforeEach(() => {
   testWriter.logMessages = [];
+
   testEnricher.callCount = 0;
+  clock = sinon.useFakeTimers(expected.getTime());
+});
+
+afterEach(() => {
+    clock.restore();
 });
 
 describe('GivenLoggerSetToInformationLevel', () => {
@@ -31,6 +40,14 @@ describe('GivenLoggerSetToInformationLevel', () => {
     expect(LogLevel.Info).to.equal(testWriter.logMessages[0].level);
   });
 
+  it('WhenLoggingAtInformationLevel_ThenLogsMessageWithTimestamp', () => {
+    
+      logger.information((logBuilder) => {
+          logBuilder.withMessage('Hello World');
+      }, 'someMethod');
+      expect(`${expected}`).to.equal(`${testWriter.logMessages[0].timestamp}`);
+  });
+
   it('WhenLogging_WithEnricher_ThenCallsEnrichers', () => {
 
     logger.information((logBuilder) => {
@@ -41,7 +58,7 @@ describe('GivenLoggerSetToInformationLevel', () => {
   });
 
   it('WhenLoggingAtInformationLevel_ThenLogsMessage', () => {
-    let expectedMessage = 'Hello World';
+    const expectedMessage = 'Hello World';
 
     logger.information((logBuilder) => {
       logBuilder.withMessage(expectedMessage);
@@ -51,7 +68,7 @@ describe('GivenLoggerSetToInformationLevel', () => {
   });
 
   it('WhenLoggingAtInformationLevel_ThenOnlyCallsWriterOnce', () => {
-    let expectedMessage = 'Hello World';
+    const expectedMessage = 'Hello World';
 
     logger.information((logBuilder) => {
       logBuilder.withMessage(expectedMessage);
@@ -101,7 +118,7 @@ describe('GivenLoggerSetToInformationLevel', () => {
   });
 
   it('WhenLoggingAtInformationLevel_WithMethod_ThenLogsMethod', () => {
-    let expectedMethod = 'someMethod';
+    const expectedMethod = 'someMethod';
 
     logger.information((logBuilder) => {
       logBuilder.withMessage('Hello World');
@@ -111,8 +128,8 @@ describe('GivenLoggerSetToInformationLevel', () => {
   });
 
   it('WhenLoggingAtInformationLevel_WithProperties_ThenLogsProperties', () => {
-    let expectedKey = 'customer_hash';
-    let expectedValue = 'sdfsdfsd';
+    const expectedKey = 'customer_hash';
+    const expectedValue = 'sdfsdfsd';
 
     logger.information((logBuilder) => {
       logBuilder.withMessage('Hello World')
@@ -123,10 +140,10 @@ describe('GivenLoggerSetToInformationLevel', () => {
   });
 
   it('WhenLoggingAtInformationLevel_WithMultipleProperties_ThenLogsProperties', () => {
-    let expectedKeyOne = 'customer_hash';
-    let expectedKeyTwo = 'email_hash';
-    let expectedValueOne = 'sdfsdfsd';
-    let expectedValueTwo = 'wetyuty';
+    const expectedKeyOne = 'customer_hash';
+    const expectedKeyTwo = 'email_hash';
+    const expectedValueOne = 'sdfsdfsd';
+    const expectedValueTwo = 'wetyuty';
 
     logger.information((logBuilder) => {
       logBuilder.withMessage('Hello World')
@@ -139,7 +156,7 @@ describe('GivenLoggerSetToInformationLevel', () => {
   });
 
   it('WhenLoggingAtInformationLevel_WithTags_ThenLogsTags', () => {
-    let expectedTag = 'success';
+    const expectedTag = 'success';
 
     logger.information((logBuilder) => {
       logBuilder.withMessage('Hello World')
@@ -150,8 +167,8 @@ describe('GivenLoggerSetToInformationLevel', () => {
   });
 
   it('WhenLoggingAtInformationLevel_WithMultipleTags_ThenLogsTags', () => {
-    let expectedTagOne = 'success';
-    let expectedTagTwo = 'failure';
+    const expectedTagOne = 'success';
+    const expectedTagTwo = 'failure';
 
     logger.information((logBuilder) => {
       logBuilder.withMessage('Hello World')
