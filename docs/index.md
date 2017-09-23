@@ -1,12 +1,21 @@
 ---
 layout: default
 ---
+# Contents
+- Home
+- [Getting Started]()
+  - [Creating logger]()
+  - [Log Levels]()
+  - [Logging]()
+  - Advance
+    - [Enrichers](./advance/Enrichers)
+    - [Writers]()
+
 # What?
 
-Loxium allows you to do so much more then simply log a message, With Loxium not only can you log messages but you can add tags, Properties and enrich your logs with contextual information. It's also built with maximum extensibility allowing you to control where, when and how your logs are sent through it's clean and simple api. Loxium has been heavily influence by Serilog, a logging package for .Net and my co-workers at Sequensis.
+Loxium allows you to do so much more than simply log a message, With Loxium not only can you log messages but you can add tags, Properties and enrich your logs with contextual information. It's also built with maximum extensibility allowing you to control where, when and how your logs are sent through it's clean and simple API. Loxium has been heavily influenced by [Serilog](https://www.serilog.com), a logging package for .Net and my co-workers at [Sequensis.](https://www.sequensis.co.uk)
 
 ## Features
-
 
 * Supports standard trace/debug/info/warn/error logging levels 
 * Works in all modern browsers & node.js
@@ -46,6 +55,4 @@ Output:
 ## Installation
 Node - `npm install loxium`
 
-CDN - `<script src=""></script>` Todo: setup cdn
-
-for more advance examples such as adding properties, tags, contextual information and shipping logs off to a server [see docs](https://github.com/Supercide/loxium/wiki)
+CDN - `<script src="https://cdn.jsdelivr.net/npm/loxium@latest/dist/loxium.min.js"></script>`
