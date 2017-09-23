@@ -1,58 +1,60 @@
 {
-  "name": "loxium",
-  "version": "0.1.12",
-  "description": "logging framework",
-  "main": "./lib/loxium.js",
-  "types": "./lib/loxium.d.ts",
-  "engines": {
-    "node": ">=4.2.0"
-  },
-  "dependencies": {},
-  "devDependencies": {
-    "@types/chai": "^4.0.4",
-    "@types/mocha": "^2.2.42",
-    "chai": "^4.1.2",
-    "codelyzer": "^3.1.2",
-    "del": "^3.0.0",
-    "expose-loader": "^0.7.3",
-    "file-system": "^2.2.2",
-    "gulp": "^3.9.1",
-    "gulp-typescript": "^3.2.2",
-    "gulp-uglify": "^3.0.0",
-    "karma": "^1.7.1",
-    "mocha": "^3.5.0",
-    "mocha-appveyor-reporter": "^0.4.0",
-    "path": "^0.12.7",
-    "sinon": "^3.2.1",
-    "ts-node": "^3.3.0",
-    "tslint": "^5.7.0",
-    "typescript": "^2.5.2",
-    "typings": "^2.1.1",
-    "vinyl-source-stream": "^1.1.0",
-    "webpack": "^3.6.0",
-    "webpack-stream": "^4.0.0"
-  },
-  "scripts": {
-    "test": "mocha -r ts-node/register ./tests/**/*.tests.ts",
-    "gulp": "gulp",
-    "lint": "npm run tslint \"src/**/*.ts\"",
-    "tslint": "tslint",
-    "webpack": "webpack --config webpack.config.js",
-    "build": "npm run gulp && npm run webpack",
-    "ci": "npm install && typings install && npm run lint && npm test && npm run build",
-    "ci:appveyor": "npm install && typings install && npm run lint && npm test -- --reporter mocha-appveyor-reporter && npm run build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Supercide/loxium.git"
-  },
-  "keywords": [
-    "logging"
-  ],
-  "author": "Jordan anderson",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Supercide/loxium/issues"
-  },
-  "homepage": "https://github.com/Supercide/loxium#readme"
+    "name": "loxium",
+    "version": "0.1.13",
+    "description": "logging framework",
+    "main": "./lib/loxium.js",
+    "types": "./lib/loxium.d.ts",
+    "engines": {
+        "node": ">=4.2.0"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@types/chai": "^4.0.4",
+        "@types/mocha": "^2.2.42",
+        "chai": "^4.1.2",
+        "codelyzer": "^3.1.2",
+        "del": "^3.0.0",
+        "expose-loader": "^0.7.3",
+        "file-system": "^2.2.2",
+        "gulp": "^3.9.1",
+        "gulp-rename": "^1.2.2",
+        "gulp-typescript": "^3.2.2",
+        "gulp-uglify": "^3.0.0",
+        "gulp-util": "^3.0.8",
+        "karma": "^1.7.1",
+        "mocha": "^3.5.0",
+        "mocha-appveyor-reporter": "^0.4.0",
+        "path": "^0.12.7",
+        "sinon": "^3.2.1",
+        "ts-node": "^3.3.0",
+        "tslint": "^5.7.0",
+        "typescript": "^2.5.2",
+        "typings": "^2.1.1",
+        "vinyl-source-stream": "^1.1.0",
+        "webpack": "^3.6.0",
+        "webpack-stream": "^4.0.0"
+    },
+    "scripts": {
+        "test": "mocha -r ts-node/register ./tests/**/*.tests.ts",
+        "gulp": "gulp",
+        "lint": "npm run tslint \"src/**/*.ts\"",
+        "tslint": "tslint",
+        "webpack": "webpack --config webpack.config.js",
+        "build": "npm run gulp && npm run webpack",
+        "ci": "npm install && typings install && npm run lint && npm test && npm run build",
+        "ci:appveyor": "npm install && typings install && npm run lint && npm test -- --reporter mocha-appveyor-reporter && npm run build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Supercide/loxium.git"
+    },
+    "keywords": [
+        "logging"
+    ],
+    "author": "Jordan anderson",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Supercide/loxium/issues"
+    },
+    "homepage": "https://github.com/Supercide/loxium#readme"
 }
