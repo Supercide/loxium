@@ -13,7 +13,7 @@ layout: default
 
 # What?
 
-Loxium allows you to do so much more than simply log a message, With Loxium not only can you log messages but you can add tags, Properties and enrich your logs with contextual information. It's also built with maximum extensibility allowing you to control where, when and how your logs are sent through it's clean and simple API. Loxium has been heavily influenced by [Serilog](https://www.serilog.com), a logging package for .Net and my co-workers at [Sequensis.](https://www.sequensis.co.uk)
+Loxium allows you to do so much more than simply log a message, With Loxium not only can you log messages but you can add tags, Properties and enrich your logs with contextual information. It's also built with maximum extensibility allowing you to control where, when and how your logs are sent through it's clean and simple API. Loxium has been heavily influenced by [Serilog](https://serilog.net/), a logging package for .Net and my co-workers at [Sequensis](http://www.sequensis.co.uk)
 
 ## Features
 
