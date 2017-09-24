@@ -1,6 +1,10 @@
+[Home](http://www.loxiumjs.com) > Getting Started
+
 # Getting started
+TODO: Add example bages
+
 ## installation
-in you are using npm you can do `npm install loxium`. If it is a web project you can add a script reference to `https://cdn.jsdelivr.net/npm/loxium@latest/dist/loxium.min.js`.
+If you are using npm you can use `npm install loxium`. If you are in a web project you can add a script reference to `https://cdn.jsdelivr.net/npm/loxium@latest/dist/loxium.min.js`.
 once this is done usage is simple.
 
 ES6 style imports
@@ -95,6 +99,4 @@ logger.debug((logBuilder) => logBuilder.withMessage('hello world')
 
 > It's recommended that you use a package like [Tracekit](https://github.com/csnover/TraceKit) to standardize errors across different environments
 
-## output
-## context
-## methods
+[Home](http://www.loxiumjs.com) > Getting Started
