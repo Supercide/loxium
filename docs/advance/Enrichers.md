@@ -10,7 +10,7 @@ layout: default
 
 Enrichers provide a way of adding extra information to all of your logs. You may want to use enrichers to add contextual information such as the page the user was on when a log was created or add the user agent they were using. When used the logger would produce output containing this information automatically similar to this
   
-```JSON
+```json
 {
     'level': 2,
     'message': 'User created ticket',
@@ -44,7 +44,7 @@ Enrichers are pretty simple, they have one method called enrich which takes a `L
 ### Example
 Define your enricher. This enricher will take the users current user agent and add it in a property field called `user_agent`
 
-```JS
+```js
 const userAgentEnricher = {
     enrich: function(logMessage) {
         logMessage.properties['user_agent'] = navigator.userAgent
@@ -56,7 +56,7 @@ Register your enricher when creating the logger.
 
 > For this example, we will also create a console logger to log out the full log message as the default console logger only logs out the text message. 
 
-```JS
+```js
 let builder = new loxium.LogBuilder();
 
 let consoleWriter = {
@@ -73,12 +73,12 @@ let logger = builder.setMinimumLevel(loxium.LogLevel.Debug)
 
 Log something
 
-```JS
+```js
 logger.debug((logBuilder) => logBuilder.withMessage('hello world'));
 ```
 
 Output
-```JSON
+```json
 {
     'level': 1,
     'message': 'hello world',

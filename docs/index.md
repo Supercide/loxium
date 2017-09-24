@@ -27,7 +27,7 @@ Loxium allows you to do so much more than simply log a message, With Loxium not 
 
 ### Example - Browser
 
-```JS
+```js
 let builder = new loxium.LogBuilder();
     
 let logger = builder.setMinimumLevel(loxium.LogLevel.Debug)
@@ -40,7 +40,7 @@ Output:
 - `17/09/2017, 14:40:16 [Debug] hello world`
 
 ### Example - Node
-```JS
+```js
 import { LogBuilder, LogLevel } from 'loxium'
 
 let builder = new LogBuilder();
