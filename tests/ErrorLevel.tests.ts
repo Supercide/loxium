@@ -33,6 +33,7 @@ describe('GivenLoggerSetToErrorLevel', () => {
   afterEach(() => {
     clock.restore();
   });
+  
 
   it('WhenLoggingAtErrorLevel_ThenLogsMessageAsError', () => {
 
