@@ -1,9 +1,15 @@
 [Home](http://www.loxiumjs.com) > Getting Started
 
 # Getting started
-TODO: Add example bages
+TODO: Add example badges
 
-## installation
+## Contents
+- [Installation]()
+- [Usage]()
+- [Structured logging]()
+- [Log Levels]()
+
+## Installation
 If you are using npm you can use `npm install loxium`. If you are in a web project you can add a script reference to `https://cdn.jsdelivr.net/npm/loxium@latest/dist/loxium.min.js`.
 once this is done usage is simple.
 
@@ -98,5 +104,17 @@ logger.debug((logBuilder) => logBuilder.withMessage('hello world')
 ```
 
 > It's recommended that you use a package like [Tracekit](https://github.com/csnover/TraceKit) to standardize errors across different environments
+
+## Log levels
+These are the different logging level you can filter at. The minimum logging level is set during construction of the logger and cannot be changed after it has been set.
+
+```
+Trace,
+Debug,
+Info,
+Warn,
+Error,
+Silent
+```
 
 [Home](http://www.loxiumjs.com) > Getting Started
