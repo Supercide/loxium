@@ -35,16 +35,53 @@ let logger = logBuilder.setMinimumLevel(loxium.LogLevel.Debug)
                        .writeTo(sampleWriter /*Specifies how to handle log messages*/)
                        .build();
 ```
-
 3 - Finally use the logger to log something
 
 ```JS
 logger.debug((logBuilder) => logBuilder.withMessage('hello world'));
 ```
 
-## tags
-## properties
-## messages
+## Structured logging
+Typically, you will see log message output looking similar to this `"24/09/2017, 15:24:00 [Debug] hello world"` which is fine and easily understood by humans but what about when you want to build a fancy dashboard from these logs? The answer typically comes in the form of some sort of ReGex query to pull out the relevant information which can get pretty complex especially with complicated logs. Structured logging brakes this information down into individual fields which are easily digestible by machine's but still keeps the log in a human-readable format. Logs are defined by the `LogMessage` class which has the following properties:
+
+```JS
+class LogMessage {
+    level: LogLevel;
+    tags: string[];
+    error: any;
+    properties: {};
+    message: string;
+    context: string;
+    method: string;
+    timestamp: Date;
+}
+```
+
+Population of these properties is done through the logger
+
+```JS
+// Adds a message to the log
+// this maps to LogMessage.message 
+logger.debug((logBuilder) => logBuilder.withMessage('hello world'));
+
+// Adds a property to the log
+// this maps to LogMessage.properties
+// the value of the property can be anything
+// it is left to you to determine how to serialize it 
+logger.debug((logBuilder) => logBuilder.withProperty('some_property', 'any value'));
+
+// Adds a tag to the log
+// this maps to LogMessage.tags
+// tags are unique so you should never 
+// receive duplicate tags in enrichers or writers
+logger.debug((logBuilder) => logBuilder.withTag('some tag'));
+
+// All methods use fluent syntax 
+// so you could chain all the methods together
+logger.debug((logBuilder) => logBuilder.withMessage('hello world')
+                                       .withProperty('some_property', 'any value')
+                                       .withTag('some tag'));
+```
 ## errors
 ## output
 ## context
