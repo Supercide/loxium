@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import * as sinon from 'sinon';
 import { LogBuilder } from '../src/LogBuilder';
 import { LogLevel } from '../src/LogLevel';
 import { TestEnricher } from './TestEnricher';
@@ -16,13 +17,22 @@ const logger = builder.setContext(context)
                     .setMinimumLevel(LogLevel.Error)
                     .build();
 
-beforeEach(() => {
-  testWriter.logMessages = [];
 
-  testEnricher.callCount = 0;
-});
 
 describe('GivenLoggerSetToErrorLevel', () => {
+
+  const now = new Date();
+  let clock;
+   
+  beforeEach(() => {
+    testWriter.logMessages = [];
+    testEnricher.callCount = 0;
+    clock = sinon.useFakeTimers(now.getTime());
+  });
+  
+  afterEach(() => {
+    clock.restore();
+  });
 
   it('WhenLoggingAtErrorLevel_ThenLogsMessageAsError', () => {
 
@@ -31,6 +41,14 @@ describe('GivenLoggerSetToErrorLevel', () => {
     }, 'someMethod');
 
     expect(LogLevel.Error).to.equal(testWriter.logMessages[0].level);
+  });
+
+  it('WhenLoggingAtErrorLevel_ThenLogsMessageWithTimestamp', () => {
+    
+      logger.error((logBuilder) => {
+          logBuilder.withMessage('Hello World');
+      }, 'someMethod');
+      expect(`${now}`).to.equal(`${testWriter.logMessages[0].timestamp}`);
   });
 
   it('WhenLogging_WithEnricher_ThenCallsEnrichers', () => {
