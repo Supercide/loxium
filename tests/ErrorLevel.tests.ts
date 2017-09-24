@@ -1,32 +1,25 @@
-import { expect } from 'chai';
-import * as sinon from 'sinon';
+import { expect } from 'chai'
+import { TestWriter } from './TestWriter';
 import { LogBuilder } from '../src/LogBuilder';
 import { LogLevel } from '../src/LogLevel';
 import { TestEnricher } from './TestEnricher';
-import { TestWriter } from './TestWriter';
 
 
-const testWriter = new TestWriter();
-const testEnricher = new TestEnricher();
-const expected = new Date();
-const builder = new LogBuilder();
-const context = 'ErrorLevel.test.ts';
-const logger = builder.setContext(context)
+let testWriter = new TestWriter();
+let testEnricher = new TestEnricher();
+
+let builder = new LogBuilder();
+let context = 'ErrorLevel.test.ts';
+let logger = builder.setContext(context)
                     .writeTo(testWriter)
                     .enrichWith(testEnricher)
                     .setMinimumLevel(LogLevel.Error)
                     .build();
-let clock;
 
 beforeEach(() => {
   testWriter.logMessages = [];
 
   testEnricher.callCount = 0;
-  clock = sinon.useFakeTimers(expected.getTime());
-});
-
-afterEach(() => {
-    clock.restore();
 });
 
 describe('GivenLoggerSetToErrorLevel', () => {
@@ -40,14 +33,6 @@ describe('GivenLoggerSetToErrorLevel', () => {
     expect(LogLevel.Error).to.equal(testWriter.logMessages[0].level);
   });
 
-  it('WhenLoggingAtErrorLevel_ThenLogsMessageWithTimestamp', () => {
-    
-      logger.error((logBuilder) => {
-          logBuilder.withMessage('Hello World');
-      }, 'someMethod');
-      expect(`${expected}`).to.equal(`${testWriter.logMessages[0].timestamp}`);
-  });
-
   it('WhenLogging_WithEnricher_ThenCallsEnrichers', () => {
 
     logger.error((logBuilder) => {
@@ -58,7 +43,7 @@ describe('GivenLoggerSetToErrorLevel', () => {
   });
 
   it('WhenLoggingAtErrorLevel_ThenLogsMessage', () => {
-    const expectedMessage = 'Hello World';
+    let expectedMessage = 'Hello World';
 
     logger.error((logBuilder) => {
       logBuilder.withMessage(expectedMessage);
@@ -118,7 +103,7 @@ describe('GivenLoggerSetToErrorLevel', () => {
   });
 
   it('WhenLoggingAtErrorLevel_WithMethod_ThenLogsMethod', () => {
-    const expectedMethod = 'someMethod';
+    let expectedMethod = 'someMethod';
 
     logger.error((logBuilder) => {
       logBuilder.withMessage('Hello World');
@@ -128,8 +113,8 @@ describe('GivenLoggerSetToErrorLevel', () => {
   });
 
   it('WhenLoggingAtErrorLevel_WithProperties_ThenLogsProperties', () => {
-    const expectedKey = 'customer_hash';
-    const expectedValue = 'sdfsdfsd';
+    let expectedKey = 'customer_hash';
+    let expectedValue = 'sdfsdfsd';
 
     logger.error((logBuilder) => {
       logBuilder.withMessage('Hello World')
@@ -140,10 +125,10 @@ describe('GivenLoggerSetToErrorLevel', () => {
   });
 
   it('WhenLoggingAtErrorLevel_WithMultipleProperties_ThenLogsProperties', () => {
-    const expectedKeyOne = 'customer_hash';
-    const expectedKeyTwo = 'email_hash';
-    const expectedValueOne = 'sdfsdfsd';
-    const expectedValueTwo = 'wetyuty';
+    let expectedKeyOne = 'customer_hash';
+    let expectedKeyTwo = 'email_hash';
+    let expectedValueOne = 'sdfsdfsd';
+    let expectedValueTwo = 'wetyuty';
 
     logger.error((logBuilder) => {
       logBuilder.withMessage('Hello World')
@@ -156,7 +141,7 @@ describe('GivenLoggerSetToErrorLevel', () => {
   });
 
   it('WhenLoggingAtErrorLevel_WithTags_ThenLogsTags', () => {
-    const expectedTag = 'success';
+    let expectedTag = 'success';
 
     logger.error((logBuilder) => {
       logBuilder.withMessage('Hello World')
@@ -167,8 +152,8 @@ describe('GivenLoggerSetToErrorLevel', () => {
   });
 
   it('WhenLoggingAtErrorLevel_WithMultipleTags_ThenLogsTags', () => {
-    const expectedTagOne = 'success';
-    const expectedTagTwo = 'failure';
+    let expectedTagOne = 'success';
+    let expectedTagTwo = 'failure';
 
     logger.error((logBuilder) => {
       logBuilder.withMessage('Hello World')

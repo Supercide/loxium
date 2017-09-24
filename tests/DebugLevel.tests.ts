@@ -1,31 +1,23 @@
-import { expect } from 'chai';
-import * as sinon from 'sinon';
+import { expect } from 'chai'
 import { LogBuilder } from '../src/LogBuilder';
 import { LogLevel } from '../src/LogLevel';
-import { TestEnricher } from './TestEnricher';
 import { TestWriter } from './TestWriter';
+import { TestEnricher } from './TestEnricher';
 
-const testWriter = new TestWriter();
-const testEnricher = new TestEnricher();
-const expected = new Date();
-const builder = new LogBuilder();
-const context = 'DebugLevel.test.ts';
-const logger = builder.setContext(context)
+let testWriter = new TestWriter();
+let testEnricher = new TestEnricher();
+
+let builder = new LogBuilder();
+let context = 'DebugLevel.test.ts';
+let logger = builder.setContext(context)
     .writeTo(testWriter)
     .enrichWith(testEnricher)
     .setMinimumLevel(LogLevel.Debug)
     .build();
 
-let clock;
-
 beforeEach(() => {
     testWriter.logMessages = [];
     testEnricher.callCount = 0;
-    clock = sinon.useFakeTimers(expected.getTime());
-});
-
-afterEach(() => {
-    clock.restore();
 });
 
 describe('GivenLoggerSetToDebugLevel', () => {
@@ -37,15 +29,6 @@ describe('GivenLoggerSetToDebugLevel', () => {
         }, 'someMethod');
 
         expect(LogLevel.Debug).to.equal(testWriter.logMessages[0].level);
-    });
-
-    it('WhenLoggingAtDebugLevel_ThenLogsMessageWithTimestamp', () => {
-
-        logger.debug((logBuilder) => {
-            logBuilder.withMessage('Hello World');
-        }, 'someMethod');
-
-        expect(`${expected}`).to.equal(`${testWriter.logMessages[0].timestamp}`);
     });
 
     it('WhenLogging_WithEnricher_ThenCallsEnrichers', () => {
@@ -67,7 +50,7 @@ describe('GivenLoggerSetToDebugLevel', () => {
     });
 
     it('WhenLoggingAtDebugLevel_ThenLogsMessage', () => {
-        const expectedMessage = 'Hello World';
+        let expectedMessage = 'Hello World';
 
         logger.debug((logBuilder) => {
             logBuilder.withMessage(expectedMessage);
@@ -77,7 +60,7 @@ describe('GivenLoggerSetToDebugLevel', () => {
     });
 
     it('WhenLoggingAtDebugLevel_ThenOnlyCallsWriterOnce', () => {
-        const expectedMessage = 'Hello World';
+        let expectedMessage = 'Hello World';
 
         logger.debug((logBuilder) => {
             logBuilder.withMessage(expectedMessage);
@@ -127,7 +110,7 @@ describe('GivenLoggerSetToDebugLevel', () => {
     });
 
     it('WhenLoggingAtDebugLevel_WithMethod_ThenLogsMethod', () => {
-        const expectedMethod = 'someMethod';
+        let expectedMethod = 'someMethod';
 
         logger.debug((logBuilder) => {
             logBuilder.withMessage('Hello World');
@@ -137,8 +120,8 @@ describe('GivenLoggerSetToDebugLevel', () => {
     });
 
     it('WhenLoggingAtDebugLevel_WithProperties_ThenLogsProperties', () => {
-        const expectedKey = 'customer_hash';
-        const expectedValue = 'sdfsdfsd';
+        let expectedKey = 'customer_hash';
+        let expectedValue = 'sdfsdfsd';
 
         logger.debug((logBuilder) => {
             logBuilder.withMessage('Hello World')
@@ -149,10 +132,10 @@ describe('GivenLoggerSetToDebugLevel', () => {
     });
 
     it('WhenLoggingAtDebugLevel_WithMultipleProperties_ThenLogsProperties', () => {
-        const expectedKeyOne = 'customer_hash';
-        const expectedKeyTwo = 'email_hash';
-        const expectedValueOne = 'sdfsdfsd';
-        const expectedValueTwo = 'wetyuty';
+        let expectedKeyOne = 'customer_hash';
+        let expectedKeyTwo = 'email_hash';
+        let expectedValueOne = 'sdfsdfsd';
+        let expectedValueTwo = 'wetyuty';
 
         logger.debug((logBuilder) => {
             logBuilder.withMessage('Hello World')
@@ -165,7 +148,7 @@ describe('GivenLoggerSetToDebugLevel', () => {
     });
 
     it('WhenLoggingAtDebugLevel_WithTags_ThenLogsTags', () => {
-        const expectedTag = 'success';
+        let expectedTag = 'success';
 
         logger.debug((logBuilder) => {
             logBuilder.withMessage('Hello World')
@@ -176,8 +159,8 @@ describe('GivenLoggerSetToDebugLevel', () => {
     });
 
     it('WhenLoggingAtDebugLevel_WithMultipleTags_ThenLogsTags', () => {
-        const expectedTagOne = 'success';
-        const expectedTagTwo = 'failure';
+        let expectedTagOne = 'success';
+        let expectedTagTwo = 'failure';
 
         logger.debug((logBuilder) => {
             logBuilder.withMessage('Hello World')

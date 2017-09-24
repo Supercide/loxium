@@ -8,9 +8,4 @@ export class LogMessage {
     message: string;
     context: string;
     method: string;
-    timestamp: Date;
-    
-    constructor() {
-        this.timestamp = new Date();
-    }
 }

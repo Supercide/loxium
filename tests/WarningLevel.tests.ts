@@ -1,29 +1,19 @@
-import { expect } from 'chai';
-import * as sinon from 'sinon';
+import { expect } from 'chai'
 import { LogBuilder } from '../src/LogBuilder';
 import { LogLevel } from '../src/LogLevel';
-import { TestEnricher } from './TestEnricher';
 import { TestWriter } from './TestWriter';
+import { TestEnricher } from './TestEnricher';
 
-const testWriter = new TestWriter();
-const testEnricher = new TestEnricher();
-const builder = new LogBuilder();
-const context = 'WarningLevel.test.ts';
-const logger = builder.setContext(context)
+let testWriter = new TestWriter();
+let testEnricher = new TestEnricher();
+
+let builder = new LogBuilder();
+let context = 'WarningLevel.test.ts';
+let logger = builder.setContext(context)
                     .writeTo(testWriter)
                     .enrichWith(testEnricher)
                     .setMinimumLevel(LogLevel.Warn)
                     .build();
-
-const expected = new Date();
-let clock;
-                    
-beforeEach(() => {
-  testWriter.logMessages = [];
-
-  testEnricher.callCount = 0;
-  clock = sinon.useFakeTimers(expected.getTime());
-});
 
 beforeEach(() => {
   testWriter.logMessages = [];
@@ -49,17 +39,9 @@ describe('GivenLoggerSetToWarningLevel', () => {
 
     expect(1).to.equal(testEnricher.callCount);
   });
-  
-  it('WhenLoggingAtWarningLevel_ThenLogsMessageWithTimestamp', () => {
-    
-      logger.warn((logBuilder) => {
-          logBuilder.withMessage('Hello World');
-      }, 'someMethod');
-      expect(`${expected}`).to.equal(`${testWriter.logMessages[0].timestamp}`);
-  });
 
   it('WhenLoggingAtWarningLevel_ThenLogsMessage', () => {
-    const expectedMessage = 'Hello World';
+    let expectedMessage = 'Hello World';
 
     logger.warn((logBuilder) => {
       logBuilder.withMessage(expectedMessage);
@@ -69,7 +51,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
   });
 
   it('WhenLoggingAtWarningLevel_ThenOnlyCallsWriterOnce', () => {
-    const expectedMessage = 'Hello World';
+    let expectedMessage = 'Hello World';
 
     logger.warn((logBuilder) => {
       logBuilder.withMessage(expectedMessage);
@@ -119,7 +101,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
   });
 
   it('WhenLoggingAtWarningLevel_WithMethod_ThenLogsMethod', () => {
-    const expectedMethod = 'someMethod';
+    let expectedMethod = 'someMethod';
 
     logger.warn((logBuilder) => {
       logBuilder.withMessage('Hello World');
@@ -129,8 +111,8 @@ describe('GivenLoggerSetToWarningLevel', () => {
   });
 
   it('WhenLoggingAtWarningLevel_WithProperties_ThenLogsProperties', () => {
-    const expectedKey = 'customer_hash';
-    const expectedValue = 'sdfsdfsd';
+    let expectedKey = 'customer_hash';
+    let expectedValue = 'sdfsdfsd';
 
     logger.warn((logBuilder) => {
       logBuilder.withMessage('Hello World')
@@ -141,10 +123,10 @@ describe('GivenLoggerSetToWarningLevel', () => {
   });
 
   it('WhenLoggingAtWarningLevel_WithMultipleProperties_ThenLogsProperties', () => {
-    const expectedKeyOne = 'customer_hash';
-    const expectedKeyTwo = 'email_hash';
-    const expectedValueOne = 'sdfsdfsd';
-    const expectedValueTwo = 'wetyuty';
+    let expectedKeyOne = 'customer_hash';
+    let expectedKeyTwo = 'email_hash';
+    let expectedValueOne = 'sdfsdfsd';
+    let expectedValueTwo = 'wetyuty';
 
     logger.warn((logBuilder) => {
       logBuilder.withMessage('Hello World')
@@ -157,7 +139,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
   });
 
   it('WhenLoggingAtWarningLevel_WithTags_ThenLogsTags', () => {
-    const expectedTag = 'success';
+    let expectedTag = 'success';
 
     logger.warn((logBuilder) => {
       logBuilder.withMessage('Hello World')
@@ -168,8 +150,8 @@ describe('GivenLoggerSetToWarningLevel', () => {
   });
 
   it('WhenLoggingAtWarningLevel_WithMultipleTags_ThenLogsTags', () => {
-    const expectedTagOne = 'success';
-    const expectedTagTwo = 'failure';
+    let expectedTagOne = 'success';
+    let expectedTagTwo = 'failure';
 
     logger.warn((logBuilder) => {
       logBuilder.withMessage('Hello World')
