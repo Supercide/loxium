@@ -1,26 +1,41 @@
-import { expect } from 'chai'
+import { expect } from 'chai';
+import * as sinon from 'sinon';
 import { LogBuilder } from '../src/LogBuilder';
 import { LogLevel } from '../src/LogLevel';
-import { TestWriter } from './TestWriter';
 import { TestEnricher } from './TestEnricher';
+import { TestWriter } from './TestWriter';
 
-let testWriter = new TestWriter();
-
-let testEnricher = new TestEnricher();
-let builder = new LogBuilder();
-let context = 'TraceLevel.test.ts';
-let logger = builder.setContext(context)
+const testWriter = new TestWriter();
+const testEnricher = new TestEnricher();
+const builder = new LogBuilder();
+const context = 'TraceLevel.test.ts';
+const logger = builder.setContext(context)
                     .writeTo(testWriter)
                     .enrichWith(testEnricher)
                     .setMinimumLevel(LogLevel.Trace)
                     .build();
 
-beforeEach(() => {
-  testWriter.logMessages = [];
-  testEnricher.callCount = 0;
-});
-
 describe('GivenLoggerSetToWarningLevel', () => {
+  const now = new Date();
+  let clock;
+   
+  beforeEach(() => {
+    testWriter.logMessages = [];
+    testEnricher.callCount = 0;
+    clock = sinon.useFakeTimers(now.getTime());
+  });
+  
+  afterEach(() => {
+    clock.restore();
+  });
+
+  it('WhenLoggingAtInformationLevel_ThenLogsMessageWithTimestamp', () => {
+    
+      logger.information((logBuilder) => {
+          logBuilder.withMessage('Hello World');
+      }, 'someMethod');
+      expect(`${now}`).to.equal(`${testWriter.logMessages[0].timestamp}`);
+  });
 
   it('WhenLoggingAtTraceLevel_ThenLogsMessageAsTrace', () => {
 
@@ -41,7 +56,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
   });
 
   it('WhenLoggingAtTraceLevel_ThenLogsMessage', () => {
-    let expectedMessage = 'Hello World';
+    const expectedMessage = 'Hello World';
 
     logger.trace((logBuilder) => {
       logBuilder.withMessage(expectedMessage);
@@ -51,7 +66,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
   });
 
   it('WhenLoggingAtTraceLevel_ThenOnlyCallsWriterOnce', () => {
-    let expectedMessage = 'Hello World';
+    const expectedMessage = 'Hello World';
 
     logger.trace((logBuilder) => {
       logBuilder.withMessage(expectedMessage);
@@ -101,7 +116,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
   });
 
   it('WhenLoggingAtTraceLevel_WithMethod_ThenLogsMethod', () => {
-    let expectedMethod = 'someMethod';
+    const expectedMethod = 'someMethod';
 
     logger.trace((logBuilder) => {
       logBuilder.withMessage('Hello World');
@@ -111,8 +126,8 @@ describe('GivenLoggerSetToWarningLevel', () => {
   });
 
   it('WhenLoggingAtTraceLevel_WithProperties_ThenLogsProperties', () => {
-    let expectedKey = 'customer_hash';
-    let expectedValue = 'sdfsdfsd';
+    const expectedKey = 'customer_hash';
+    const expectedValue = 'sdfsdfsd';
 
     logger.trace((logBuilder) => {
       logBuilder.withMessage('Hello World')
@@ -123,10 +138,10 @@ describe('GivenLoggerSetToWarningLevel', () => {
   });
 
   it('WhenLoggingAtTraceLevel_WithMultipleProperties_ThenLogsProperties', () => {
-    let expectedKeyOne = 'customer_hash';
-    let expectedKeyTwo = 'email_hash';
-    let expectedValueOne = 'sdfsdfsd';
-    let expectedValueTwo = 'wetyuty';
+    const expectedKeyOne = 'customer_hash';
+    const expectedKeyTwo = 'email_hash';
+    const expectedValueOne = 'sdfsdfsd';
+    const expectedValueTwo = 'wetyuty';
 
     logger.trace((logBuilder) => {
       logBuilder.withMessage('Hello World')
@@ -139,7 +154,7 @@ describe('GivenLoggerSetToWarningLevel', () => {
   });
 
   it('WhenLoggingAtTraceLevel_WithTags_ThenLogsTags', () => {
-    let expectedTag = 'success';
+    const expectedTag = 'success';
 
     logger.trace((logBuilder) => {
       logBuilder.withMessage('Hello World')
@@ -150,8 +165,8 @@ describe('GivenLoggerSetToWarningLevel', () => {
   });
 
   it('WhenLoggingAtTraceLevel_WithMultipleTags_ThenLogsTags', () => {
-    let expectedTagOne = 'success';
-    let expectedTagTwo = 'failure';
+    const expectedTagOne = 'success';
+    const expectedTagTwo = 'failure';
 
     logger.trace((logBuilder) => {
       logBuilder.withMessage('Hello World')
