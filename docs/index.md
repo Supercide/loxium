@@ -1,15 +1,19 @@
 ---
 layout: default
 ---
-# Contents
+# Loxium
+TODO: add all the badges
+
+## Contents
 - Home
-- [Getting Started]()
-  - [Creating logger]()
+- [Getting Started](./getting-started)
+  - [Installation]()
+  - [Usage]()
+  - [Structured logging]()
   - [Log Levels]()
-  - [Logging]()
-  - Advance
-    - [Enrichers](./advance/Enrichers)
-    - [Writers]()
+- Advance
+  - [Enrichers](./advance/Enrichers)
+  - [Writers](./advance/Writers)
 
 # What?
 
