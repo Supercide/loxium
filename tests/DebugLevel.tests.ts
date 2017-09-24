@@ -19,17 +19,19 @@ const logger = builder.setContext(context)
 const now = new Date();
 let clock;
 
-beforeEach(() => {
-    testWriter.logMessages = [];
-    testEnricher.callCount = 0;
-    clock = sinon.useFakeTimers(now.getTime());
-});
 
-afterEach(() => {
-    clock.restore();
-});
     
 describe('GivenLoggerSetToDebugLevel', () => {
+    
+    beforeEach(() => {
+        testWriter.logMessages = [];
+        testEnricher.callCount = 0;
+        clock = sinon.useFakeTimers(now.getTime());
+    });
+    
+    afterEach(() => {
+        clock.restore();
+    });
 
     it('WhenLoggingAtDebugLevel_ThenLogsMessageAsDebug', () => {
 
