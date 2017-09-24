@@ -1,15 +1,17 @@
 ---
 layout: default
 ---
-# Contents
-- Home
-- [Getting Started]()
-  - [Creating logger]()
-  - [Log Levels]()
-  - [Logging]()
-  - Advance
-    - [Enrichers](./advance/Enrichers)
-    - [Writers]()
+# Loxium
+
+## Contents
+- [Getting Started](./getting-started)
+  - [Installation](./getting-started#installation)
+  - [Usage](./getting-started#usage)
+  - [Structured logging](./getting-started#structured-logging)
+  - [Log Levels](./getting-started#log-levels)
+- Advance
+  - [Enrichers](./advance/Enrichers)
+  - [Writers](./advance/Writers)
 
 # What?
 

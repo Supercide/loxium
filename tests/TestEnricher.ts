@@ -1,5 +1,5 @@
-import { EnrichLogs } from '../src/EnrichLogs';
 import { BuildLogMessage } from '../src/BuildLogMessage';
+import { EnrichLogs } from '../src/EnrichLogs';
 import { LogMessage } from '../src/LogMessage';
 
 export class TestEnricher implements EnrichLogs {

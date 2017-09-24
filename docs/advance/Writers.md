@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-[Home](http://www.loxiumjs.com) > [Getting Started](http://www.loxiumjs.com/GettingStarted) > Advance > Writers
+[Home](http://www.loxiumjs.com) > Advance > Writers
 
 # Writers
 [![example](../assets/imgs/codepen.io-Example.svg)](https://codepen.io/supercide/pen/RLoRmB)
@@ -70,4 +70,4 @@ logger.information((builder) => builder.withMessage('Hello world')
 We will get the following output
 - `24/09/2017, 12:24:28 [Info] [Tags: success,example] Hello world`
 
-[Home](http://www.loxiumjs.com) > [Getting Started](http://www.loxiumjs.com/GettingStarted) > Advance > Writers
+[Home](http://www.loxiumjs.com) > Advance > Writers

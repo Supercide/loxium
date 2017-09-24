@@ -1,5 +1,5 @@
-import { WriteLogMessage } from '../src/WriteLogMessage';
 import { LogMessage } from '../src/LogMessage';
+import { WriteLogMessage } from '../src/WriteLogMessage';
 
 export class TestWriter implements WriteLogMessage {
 

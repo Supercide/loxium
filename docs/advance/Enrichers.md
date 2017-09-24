@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-[Home](http://www.loxiumjs.com) > [Getting Started](http://www.loxiumjs.com/GettingStarted) > Advance > Enrichers
+[Home](http://www.loxiumjs.com) > Advance > Enrichers
 
 # Enrichers
 [![example](../assets/imgs/codepen.io-Example.svg)](https://codepen.io/supercide/pen/aLBoWx)
@@ -91,4 +91,4 @@ Output
 
 It's as simple as that.
 
-[Home](http://www.loxiumjs.com) > [Getting Started](http://www.loxiumjs.com/GettingStarted) > Advance > Enrichers
+[Home](http://www.loxiumjs.com) > Advance > Enrichers
