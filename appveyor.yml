@@ -42,7 +42,7 @@ for:
         - master
 
     before_build: 
-      - ps: $env:version="$($env:version).$($env:APPVEYOR_BUILD_NUMBER)-$($env:APPVEYOR_REPO_BRANCH)"
+      - ps: $env:version="$($env:version)-$($env:APPVEYOR_REPO_BRANCH)+$($env:APPVEYOR_BUILD_NUMBER)"
       - ps: Update-AppveyorBuild -Version "$($env:version)"
 
     on_success:
