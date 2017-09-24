@@ -1,6 +1,6 @@
 {
     "name": "loxium",
-    "version": "0.1.15",
+    "version": "0.3.0",
     "description": "logging framework",
     "main": "./lib/loxium.js",
     "types": "./lib/loxium.d.ts",
@@ -52,7 +52,7 @@
         "logging"
     ],
     "author": "Jordan anderson",
-    "license": "ISC",
+    "license": "MIT",
     "bugs": {
         "url": "https://github.com/Supercide/loxium/issues"
     },
