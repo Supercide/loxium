@@ -1,13 +1,12 @@
 [Home](http://www.loxiumjs.com) > Getting Started
 
 # Getting started
-TODO: Add example badges
 
 ## Contents
-- [Installation]()
-- [Usage]()
-- [Structured logging]()
-- [Log Levels]()
+- [Installation](#installation)
+- [Usage](#usage)
+- [Structured logging](#structured-logging)
+- [Log Levels](#log-levels)
 
 ## Installation
 If you are using npm you can use `npm install loxium`. If you are in a web project you can add a script reference to `https://cdn.jsdelivr.net/npm/loxium@latest/dist/loxium.min.js`.
