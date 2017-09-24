@@ -13,24 +13,24 @@ If you are using npm you can use `npm install loxium`. If you are in a web proje
 once this is done usage is simple.
 
 ES6 style imports
-```JS
+```js
 import { LogBuilder } from 'loxium';
 ```
 
 Using require
-```JS
+```js
 const LogBuilder = require('loxium').LogBuilder;
 ```
 
 In the browser
-```JS
+```js
 const LogBuilder = loxium.LogBuilder;
 ```
 ## Usage
 Creation of the logger is simple and can be broken down into X main steps
 
 1 - First Create the logger builder. This provides us a fluent easy to use syntax to create the logger
-```JS
+```js
 const logBuilder = new loxium.LogBuilder();
 ```
 
@@ -38,7 +38,7 @@ const logBuilder = new loxium.LogBuilder();
 
 >If you dont specify a writer then the default console writer will be used
 
-```JS
+```js
 let logger = logBuilder.setName('my logger')
                        .setMinimumLevel(loxium.LogLevel.Debug)
                        .enrichWith(sampleEnricher /*Adds additional contextual information to all logs*/)
@@ -47,14 +47,14 @@ let logger = logBuilder.setName('my logger')
 ```
 3 - Finally use the logger to log something
 
-```JS
+```js
 logger.debug((logBuilder) => logBuilder.withMessage('hello world'));
 ```
 
 ## Structured logging
 Typically, you will see log message output looking similar to this `"24/09/2017, 15:24:00 [Debug] hello world"` which is fine and easily understood by humans but what about when you want to build a fancy dashboard from these logs? The answer typically comes in the form of some sort of ReGex query to pull out the relevant information which can get pretty complex especially with complicated logs. Structured logging brakes this information down into individual fields which are easily digestible by machine's but still keeps the log in a human-readable format. Logs are defined by the `LogMessage` class which has the following properties:
 
-```JS
+```js
 class LogMessage {
     level: LogLevel;
     tags: string[];
@@ -69,7 +69,7 @@ class LogMessage {
 
 Population of these properties is done through the logger
 
-```JS
+```js
 // Adds a message to the log
 // This maps to LogMessage.message 
 // Only one message is allowed per log otherwise the last message will overwrite the previous

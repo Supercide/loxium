@@ -27,7 +27,7 @@ Writers are pretty simple, they have one method called `write` which takes a `Lo
 ### Example creating a writer
 In this example, we will create a writer that will output our log messages to the console. First, let's create our writer.
 
-```JS
+```js
 let consoleWriter = {
     write: function(logMessage) {
         // log logic goes here
@@ -37,7 +37,7 @@ let consoleWriter = {
 
 For our writer, we will be interested in the message, level, timestamp, and tags which can all be retrieved from `LogMessage`.
 
-```JS
+```js
 let consoleWriter = {
     write: function(logMessage) {
         let message = logMessage.message;
@@ -53,7 +53,7 @@ let consoleWriter = {
 ```
 
 Now all that is left for us to do is register our writer when creating the logger.
-```JS
+```js
 let logger = builder.setMinimumLevel(loxium.LogLevel.Debug)
                     .writeTo(consoleWriter)
                     .build();
@@ -61,7 +61,7 @@ let logger = builder.setMinimumLevel(loxium.LogLevel.Debug)
 
 Now when we log something.
 
-```JS
+```js
 logger.information((builder) => builder.withMessage('Hello world')
                                        .withTag('success')
                                        .withTag('example'));
