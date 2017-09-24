@@ -16,18 +16,18 @@ const logger = builder.setContext(context)
     .setMinimumLevel(LogLevel.Debug)
     .build();
 
-    const now = new Date();
-    let clock;
-    
-    beforeEach(() => {
-        testWriter.logMessages = [];
-        testEnricher.callCount = 0;
-        clock = sinon.useFakeTimers(now.getTime());
-    });
-    
-    afterEach(() => {
-        clock.restore();
-    });
+const now = new Date();
+let clock;
+
+beforeEach(() => {
+    testWriter.logMessages = [];
+    testEnricher.callCount = 0;
+    clock = sinon.useFakeTimers(now.getTime());
+});
+
+afterEach(() => {
+    clock.restore();
+});
     
 describe('GivenLoggerSetToDebugLevel', () => {
 
