@@ -25,12 +25,13 @@ Creation of the logger is simple and can be broken down into X main steps
 const logBuilder = new loxium.LogBuilder();
 ```
 
-2 - Define what you want the logger to be built with. There are only a few options in this stage to keep things simple, it mainly boils down to where do you want the logs to be written/sent, What level are you interested in and what additional information do you want your logs to contain.
+2 - Define what you want the logger to be built with. There are only a few options in this stage to keep things simple, it mainly boils down to the name of the logger, where do you want the logs to be written/sent, What level are you interested in and what additional information do you want your logs to contain.
 
 >If you dont specify a writer then the default console writer will be used
 
 ```JS
-let logger = logBuilder.setMinimumLevel(loxium.LogLevel.Debug)
+let logger = logBuilder.setName('my logger')
+                       .setMinimumLevel(loxium.LogLevel.Debug)
                        .enrichWith(sampleEnricher /*Adds additional contextual information to all logs*/)
                        .writeTo(sampleWriter /*Specifies how to handle log messages*/)
                        .build();
@@ -61,28 +62,39 @@ Population of these properties is done through the logger
 
 ```JS
 // Adds a message to the log
-// this maps to LogMessage.message 
+// This maps to LogMessage.message 
+// Only one message is allowed per log otherwise the last message will overwrite the previous
 logger.debug((logBuilder) => logBuilder.withMessage('hello world'));
 
+// Adds the method to the log
+// This maps to LogMessage.Method
+// Only one method is allowed per log otherwise the last method will overwrite the previous
+logger.debug((logBuilder) => {}, 'someMethod');
+
 // Adds a property to the log
-// this maps to LogMessage.properties
-// the value of the property can be anything
-// it is left to you to determine how to serialize it 
+// This maps to LogMessage.properties
+// The value of the property can be anything
+// It is left to you to determine how to serialize it 
 logger.debug((logBuilder) => logBuilder.withProperty('some_property', 'any value'));
 
 // Adds a tag to the log
-// this maps to LogMessage.tags
-// tags are unique so you should never 
-// receive duplicate tags in enrichers or writers
+// This maps to LogMessage.tags
+// Tags are unique so you should never receive duplicate tags in enrichers or writers
 logger.debug((logBuilder) => logBuilder.withTag('some tag'));
 
-// All methods use fluent syntax 
-// so you could chain all the methods together
+// Adds an error to the log
+// this is mapped to LogMessage.error
+// Only one error is allowed per log otherwise the last error will overwrite the previous
+logger.debug((logBuilder) => logBuilder.withException(new Error('uh oh')));
+
+// All methods use fluent syntax so you can chain all the methods together
 logger.debug((logBuilder) => logBuilder.withMessage('hello world')
                                        .withProperty('some_property', 'any value')
                                        .withTag('some tag'));
 ```
-## errors
+
+> It's recommended that you use a package like [Tracekit](https://github.com/csnover/TraceKit) to standardize errors across different environments
+
 ## output
 ## context
 ## methods
