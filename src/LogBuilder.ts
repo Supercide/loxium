@@ -8,7 +8,7 @@ import { LoxiumLogger } from './LoxiumLogger';
 import { WriteLogMessage } from './WriteLogMessage';
 
 export class LogBuilder {
-    private _context: string;
+    private _name: string;
     private _level: LogLevel;
     private _logMessageWriters: WriteLogMessage[] = [];
     private _logEnrichers: EnrichLogs[] = [];
@@ -31,8 +31,8 @@ export class LogBuilder {
         return this;
     }
 
-    setContext(context: string): LogBuilder {
-        this._context = context;
+    setName(name: string): LogBuilder {
+        this._name = name;
 
         return this;
     }
@@ -40,7 +40,7 @@ export class LogBuilder {
     build(): Logger {
         const serialiser = this.createSerialiser();
 
-        return new LoxiumLogger(serialiser, this._context);
+        return new LoxiumLogger(serialiser, this._name);
     }
 
     private createSerialiser() {

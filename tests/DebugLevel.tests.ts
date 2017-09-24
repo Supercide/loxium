@@ -10,7 +10,7 @@ const testEnricher = new TestEnricher();
 
 const builder = new LogBuilder();
 const context = 'DebugLevel.test.ts';
-const logger = builder.setContext(context)
+const logger = builder.setName(context)
     .writeTo(testWriter)
     .enrichWith(testEnricher)
     .setMinimumLevel(LogLevel.Debug)
@@ -36,7 +36,10 @@ describe('GivenLoggerSetToDebugLevel', () => {
     it('WhenLoggingAtDebugLevel_ThenLogsMessageAsDebug', () => {
 
         logger.debug((logBuilder) => {
-            logBuilder.withMessage('Hello World');
+            logBuilder.withMessage('Hello World')
+                      .withProperty('some_propety', 'any value')
+                      .withTag('some tag');
+
         }, 'someMethod');
 
         expect(LogLevel.Debug).to.equal(testWriter.logMessages[0].level);

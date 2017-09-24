@@ -11,7 +11,7 @@ const testEnricher = new TestEnricher();
 
 const builder = new LogBuilder();
 const context = 'ErrorLevel.test.ts';
-const logger = builder.setContext(context)
+const logger = builder.setName(context)
                     .writeTo(testWriter)
                     .enrichWith(testEnricher)
                     .setMinimumLevel(LogLevel.Error)
